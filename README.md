@@ -82,11 +82,10 @@ Legend tells, that these forbidden corridors will reveal our darkest side.
 ### `USE_CLASSIC_CONTROLS` flag
 - ~~A + B to open menu~~
   - Currently does standing jump if room for it - need to disable jump if B is also pressed
-- ~~Automatically draw sword if encountering enemy~~
-  - Should not draw if gap between enemy - need to check
 - ~~Down to sheathe sword~~
   - TBD: if sheathed, should not draw again automatically for a second or so to allow movement before automatically drawing again.
 - ~~A or UP to block~~
+- B to pick up items
 - Require B to grab ledges while jumping, and only hang when dropping levels if B is held as well
 
 ### Movement Tweaks
