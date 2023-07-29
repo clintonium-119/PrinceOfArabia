@@ -1,6 +1,6 @@
 #include "src/utils/Arduboy2Ext.h"
 #include "src/ArduboyTonesFX.h"
-#include <ArduboyFX.h>  
+#include <ArduboyFX.h>
 
 #include "src/utils/Constants.h"
 #include "src/utils/Enums.h"
@@ -18,11 +18,11 @@ ARDUBOY_NO_USB
 Arduboy2Ext arduboy;
 
 #ifndef SAVE_MEMORY_SOUND
-    
-    uint16_t buffer[16]; 
+
+    uint16_t buffer[16];
 
     ArduboyTonesFX sound(arduboy.audio.enabled, buffer);
-    
+
 #endif
 
 #if (defined(DEBUG) && defined(DEBUG_ONSCREEN_DETAILS)) or (defined(DEBUG) && defined(DEBUG_ONSCREEN_DETAILS_MIN))
@@ -38,7 +38,6 @@ Stack <int16_t, Constants::StackSize> princeStack;
 Prince &prince = cookie.prince;
 Stack <int16_t, Constants::StackSize> enemyStack;
 Mouse mouse;
-uint8_t bCounter = 0;
 
 #ifndef SAVE_MEMORY_ENEMY
 Enemy &enemy = cookie.enemy;
@@ -105,7 +104,7 @@ void setup() {
 
 void loop() {
 
-    if (!arduboy.nextFrame()) return; 
+    if (!arduboy.nextFrame()) return;
     arduboy.pollButtons();
 
     #ifndef SAVE_MEMORY_SOUND
@@ -115,7 +114,7 @@ void loop() {
     switch (gamePlay.gameState) {
 
         #ifndef SAVE_MEMORY_PPOT
-            
+
             case GameState::SplashScreen_Init:
 
                 splashScreen_Init();
@@ -127,7 +126,7 @@ void loop() {
                 splashScreen();
                 break;
         #endif
-        
+
         #ifndef SAVE_MEMORY_OTHER
 
             case GameState::Title_Init:
@@ -141,7 +140,7 @@ void loop() {
                 #endif
 
                 gamePlay.gameState = GameState::Title;
-                
+
                 title_Init();
                 [[fallthrough]];
 
@@ -157,7 +156,7 @@ void loop() {
             #ifndef SAVE_MEMORY_SOUND
                 sound.noTone();
             #endif
-            
+
             game_Init();
             [[fallthrough]];
 
@@ -180,11 +179,11 @@ void loop() {
     }
 
     // Invert screen during play ?
-    
-    { 
+
+    {
 
         bool invert = false;
-        
+
         switch (prince.getStance()) {
 
             case Stance::Pickup_Sword_3:
@@ -200,13 +199,13 @@ void loop() {
                 invert = true;
                 break;
 
-        }    
+        }
 
 
         // Invert screen when striking player / enemy in sword fight ?
-    
+
         Flash &flash = level.getFlash();
-    
+
         #ifndef SAVE_MEMORY_ENEMY
 
             if (flash.frame == 1 && flash.type == FlashType::MirrorLevel12) {
@@ -230,7 +229,7 @@ void loop() {
     // Handle fade effects ..
 
     #ifndef SAVE_MEMORY_OTHER
-    
+
         if (!fadeEffect.isComplete()) {
 
             fadeEffect.draw(arduboy);

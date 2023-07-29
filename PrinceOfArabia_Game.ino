@@ -1,5 +1,5 @@
-#include "src/utils/Arduboy2Ext.h"  
-#include <ArduboyFX.h>  
+#include "src/utils/Arduboy2Ext.h"
+#include <ArduboyFX.h>
 
 #include "src/utils/Constants.h"
 #include "src/utils/Enums.h"
@@ -11,7 +11,7 @@
 void game_Init() {
 
     #ifdef DEBUG_LEVELS
-        gamePlay.init(startLevel);      
+        gamePlay.init(startLevel);
     #else
         gamePlay.init(STARTING_LEVEL);      // Levels 1 - 13 normal game, 14 Standing Jumps, 15 Running Jumps
     #endif
@@ -23,9 +23,9 @@ void game_StartLevel() {
     #ifndef SAVE_MEMORY_OTHER
     fadeEffect.reset();
     #endif
-    
-    prince.setHealth(gamePlay.startOfLevelHealth < 3 ? 3 : gamePlay.startOfLevelHealth);
-    prince.setHealthMax(gamePlay.startOfLevelHealthMax);
+
+    prince.setHealth((gamePlay.level == 1 || gamePlay.startOfLevelHealth < 3) ? 3 : gamePlay.startOfLevelHealth);
+    prince.setHealthMax(gamePlay.level == 1 ? 3 : gamePlay.startOfLevelHealthMax);
     gamePlay.restartLevel();
 
     #ifndef SAVE_MEMORY_ENEMY
@@ -78,7 +78,7 @@ void game() {
     // Have we scrolled to another screen ?  Ignore if we are attacking right on the edge of the screen ..
 
     bool justEnteredRoom = false;
-    
+
     switch (prince.getStance()) {
 
         case Stance::Sword_Attack_1_Start ... Stance::Sword_Attack_8_End:
@@ -93,7 +93,7 @@ void game() {
 
 
     // Handle debugging actions ..
-     
+
     #ifdef ALT_B_BUTTON
 
         if (justPressed & B_BUTTON) { // echo out details
@@ -141,16 +141,16 @@ void game() {
     #ifndef SAVE_MEMORY_ENEMY
     enemy.update();
     #endif
-    
+
     #ifdef SAVE_MEMORY_SOUND
     LevelUpdate levelUpdate = level.update(arduboy, prince, gamePlay);
-    #else 
+    #else
     LevelUpdate levelUpdate = level.update(arduboy, prince, gamePlay, sound);
-    #endif   
+    #endif
 
 
     if (levelUpdate == LevelUpdate::FloorCollapsedOnPrince) {
-        
+
         switch (prince.getStance()) {
 
             // If the prince is falling as well then we do not lose health ..
@@ -171,7 +171,7 @@ void game() {
                 initFlash(prince, level, FlashType::None);
 
                 if (prince.decHealth(1) == 0) {
-                    
+
                     #if defined(DEBUG) && defined(DEBUG_PUSH_DEAD)
                     DEBUG_PRINTLN(F("pushDead 1"));
                     #endif
@@ -181,11 +181,11 @@ void game() {
 
                 #ifndef SAVE_MEMORY_SOUND
                 setSound(SoundIndex::Thump);
-                #endif 
-                                
+                #endif
+
                 break;
 
-        
+
         }
 
     }
@@ -213,7 +213,7 @@ void game() {
     }
 
     if (menu.update()) {
-        
+
         #ifdef USE_LED
         #ifndef MICROCADE
         arduboy.setRGBled(0, 0, 0);
@@ -224,7 +224,7 @@ void game() {
         #endif
 
         gamePlay.gameState = GameState::Game;
-    
+
     }
 
     // Is the prince within distance of the enemy (cycle through all enemies to find if any closest)?
@@ -238,7 +238,7 @@ void game() {
         // If within distance, we can draw swords if we have one!
 
         if (justPressed & B_BUTTON && sameLevelAsPrince && prince.getSword() && prince.getStance() == Stance::Upright && prince.isEmpty() && enemy.getHealth() > 0 && enemy.getEnemyType() != EnemyType::MirrorAfterChallengeL12) {
-            
+
             if (gamePlay.level != 4 || level.getXLocation() < 100) {
 
                 prince.pushSequence(Stance::Draw_Sword_1_Start, Stance::Draw_Sword_6_End, Stance::Sword_Normal);
@@ -250,7 +250,7 @@ void game() {
 
 
         // ---------------------------------------------------------------------------------------------------------------------------------------
-        //  
+        //
         //  If enemy queue is empty then determine next move ..
         //
         // ---------------------------------------------------------------------------------------------------------------------------------------
@@ -269,7 +269,7 @@ void game() {
 
 
         }
-        
+
         if (gamePlay.gameState == GameState::Game && enemy.isEmpty() && enemy.getStatus() == Status::Active && enemy.getDirection() != Direction::None && enemy.getEnemyType() != EnemyType::Mirror && enemy.getEnemyType() != EnemyType::MirrorAfterChallengeL12) {
 
             BaseEntity enemyBase = enemy.getActiveBase();
@@ -323,9 +323,9 @@ void game() {
                                         enemy.pushSequence(Stance::Sword_Step_1_Start, Stance::Sword_Step_3_End);
                                     }
                                     else {
-                                        enemy.push(Stance::Sword_Normal);  
+                                        enemy.push(Stance::Sword_Normal);
                                     }
-                                    
+
                                 }
 
                                 break;
@@ -338,15 +338,15 @@ void game() {
                                     enemy.pushSequence(Stance::Sword_Step_1_Start, Stance::Sword_Step_3_End);
                                 }
                                 else {
-                                    enemy.push(Stance::Sword_Normal);  
-                                } 
+                                    enemy.push(Stance::Sword_Normal);
+                                }
 
                                 break;
 
                         }
 
                     }
-                    
+
                     break;
 
 
@@ -369,7 +369,7 @@ void game() {
 
                         }
                         else if (!prince.isSwordDrawn() && xDelta <= 24) {
-                    
+
                             #if defined(DEBUG) && defined(DEBUG_PUSH_DEAD)
                             DEBUG_PRINTLN(F("pushDead 2"));
                             #endif
@@ -394,13 +394,13 @@ void game() {
 
                         }
                         else if (!prince.isSwordDrawn() && xDelta >= -24) {
-                    
+
                             #if defined(DEBUG) && defined(DEBUG_PUSH_DEAD)
                             DEBUG_PRINTLN(F("pushDead 3"));
                             #endif
 
                             pushDead(prince, level, gamePlay, true, DeathType::SwordFight);
-                            
+
                         }
 
                         break;
@@ -426,18 +426,18 @@ void game() {
 
                         case Stance::Sword_Attack_1_Start ... Stance::Sword_Attack_2:
 
-                            if (arduboy.randomLFSR(0, 12) == 0) {    
+                            if (arduboy.randomLFSR(0, 12) == 0) {
 
                                 prince.clear();
                                 prince.pushSequence(Stance::Attack_Block_1_Start, Stance::Attack_Block_3_End, Stance::Sword_Normal);
                                 enemy.pushSequence(Stance::Attack_Block_1_Start, Stance::Attack_Block_3_End, Stance::Sword_Normal);
-                                
+
                             }
-                            else if (arduboy.randomLFSR(0, 12) == 0) {    
+                            else if (arduboy.randomLFSR(0, 12) == 0) {
 
                                 moveBackwardsWithSword(enemyBase, enemy);
-                                
-                            } 
+
+                            }
 
                             break;
 
@@ -446,16 +446,16 @@ void game() {
 
                         case Stance::Sword_Attack_3 ... Stance::Sword_Attack_4:
 
-                            if (arduboy.randomLFSR(0, 8) == 0) {    
+                            if (arduboy.randomLFSR(0, 8) == 0) {
 
                                 prince.clear();
                                 prince.pushSequence(Stance::Attack_Block_1_Start, Stance::Attack_Block_3_End, Stance::Sword_Normal);
                                 enemy.pushSequence(Stance::Attack_Block_1_Start, Stance::Attack_Block_3_End, Stance::Sword_Normal);
-                                
+
                             }
 
                             break;
-                        
+
                         default:
 
                             if (yDelta == 0) {
@@ -472,7 +472,7 @@ void game() {
 
                                             // The prince is dying, do nothing ..
 
-                                            case Stance::Falling_Dead_1_Start ... Stance::Falling_Dead_3_End: 
+                                            case Stance::Falling_Dead_1_Start ... Stance::Falling_Dead_3_End:
                                             case Stance::Falling_Dead_Blade_1_Start ... Stance::Falling_Dead_Blade_2_End:
                                                 break;
 
@@ -485,9 +485,9 @@ void game() {
                                             case Stance::Sword_Step_Back_1_Start ... Stance::Sword_Step_Back_3_End:
                                             case Stance::Sword_Normal:
 
-                                                if ((enemy.getX() >= level.getXLocation() * Constants::TileWidth && enemy.getX() <= (level.getXLocation() + 12) * Constants::TileWidth) && 
+                                                if ((enemy.getX() >= level.getXLocation() * Constants::TileWidth && enemy.getX() <= (level.getXLocation() + 12) * Constants::TileWidth) &&
                                                     (arduboy.randomLFSR(0, 16) == 0 || enemy.getDirection() == prince.getDirection())) {
-                                                  
+
                                                     enemy.pushSequence(Stance::Sword_Attack_1_Start, Stance::Sword_Attack_8_End, Stance::Sword_Normal);
 
                                                 }
@@ -515,7 +515,7 @@ void game() {
                                         if (arduboy.randomLFSR(0, 16) == 0) {
 
                                             if (level.canMoveForward(enemyBase, Action::SwordStep, enemyBase.getDirection(), 0)) {
-                                                enemy.pushSequence(Stance::Sword_Step_1_Start, Stance::Sword_Step_3_End); 
+                                                enemy.pushSequence(Stance::Sword_Step_1_Start, Stance::Sword_Step_3_End);
                                             }
                                             else {
                                                 enemy.push(Stance::Sword_Normal);
@@ -564,7 +564,7 @@ void game() {
 
 
     // ---------------------------------------------------------------------------------------------------------------------------------------
-    //  
+    //
     //  If prince queue is empty then accept input from player ..
     //
     // ---------------------------------------------------------------------------------------------------------------------------------------
@@ -575,7 +575,7 @@ void game() {
         CanFallResult canFallResult = level.canFall(prince, true);
 
 
-        // Check to see if we can leave the level, otherwise 
+        // Check to see if we can leave the level, otherwise
 
         if (!prince.isDead() && !leaveLevel(prince, level)) {
 
@@ -599,7 +599,7 @@ void game() {
                         else {
 
                             pressed = 0;
-                            
+
                         }
 
                     }
@@ -633,9 +633,9 @@ void game() {
                     }
 
                     if (pressed & DOWN_BUTTON) {
-                    
+
                         CanClimbDownResult canClimbDownResult = level.canClimbDown(prince);
-                        
+
                         if (canClimbDownResult == CanClimbDownResult::None) {
 
                             gamePlay.crouchTimer++;
@@ -644,14 +644,14 @@ void game() {
                                 prince.pushSequence(Stance::Crouch_1_Start, Stance::Crouch_3_End);
                             }
 
-                        } 
-                        
+                        }
+
                         else {
 
                             // Basic climbing sequence for all, incuding CanClimbDownResult::ClimbDown
 
                             prince.pushSequence(Stance::Step_Climbing_15_End, Stance::Step_Climbing_1_Start, Stance::Jump_Up_A_14_End);
-                            
+
                             switch (canClimbDownResult) {
 
                                 case CanClimbDownResult::TurnThenClimbDown:
@@ -770,9 +770,9 @@ void game() {
                     break;
 
                 case Stance::Jump_Up_A_14_End:     // Hanging on ledge  (dist 2)..
-                case Stance::Jump_Up_B_14_End: 
+                case Stance::Jump_Up_B_14_End:
                 case Stance::Straight_Drop_HangOn_6_End:
-              
+
                     if (pressed & DOWN_BUTTON) {
 
 
@@ -819,7 +819,7 @@ void game() {
                             prince.pushSequence(Stance::Step_Climbing_1_Start, Stance::Step_Climbing_15_End, Stance::Upright);
                         }
                         else {
-                            prince.pushSequence(Stance::Step_Climbing_Block_1_Start, Stance::Step_Climbing_Block_9_End, Stance::Upright);                        
+                            prince.pushSequence(Stance::Step_Climbing_Block_1_Start, Stance::Step_Climbing_Block_9_End, Stance::Upright);
                         }
 
                     }
@@ -842,7 +842,7 @@ void game() {
                                 break;
 
                             case CanClimbDownPart2Result::Falling:
-                                
+
                                 #if defined(DEBUG) && defined(DEBUG_ACTION_FALLING)
                                 DEBUG_PRINTLN(F("Drop after hanging, setFalling(1)"));
                                 #endif
@@ -882,8 +882,8 @@ void game() {
 
                 case Stance::Run_Repeat_4:
 
-                    if (canFallResult != CanFallResult::CanFall) {        
-                            
+                    if (canFallResult != CanFallResult::CanFall) {
+
                         if ((pressed & btnFacingDirection) && (pressed & A_BUTTON)) {
 
                             #if defined(DEBUG) && defined(DEBUG_ACTION_CANRUNNINGJUMP)
@@ -939,8 +939,8 @@ void game() {
                 case Stance::Run_Repeat_8_End:
                 case Stance::Run_Repeat_8_End_Turn:
 
-                    if (canFallResult != CanFallResult::CanFall) {    
-                                
+                    if (canFallResult != CanFallResult::CanFall) {
+
                         if ((pressed & btnFacingDirection) && (pressed & A_BUTTON)) {
 
                             #if defined(DEBUG) && defined(DEBUG_ACTION_CANRUNNINGJUMP)
@@ -957,7 +957,7 @@ void game() {
                                 #if defined(DEBUG) && defined(DEBUG_PRINT_ACTION)
                                 DEBUG_PRINTLN(F("RIGHT_BUTTON, Running Repeat"));
                                 #endif
-                                
+
                                 prince.pushSequence(Stance::Run_Repeat_1_Start, Stance::Run_Repeat_4);
                             }
                             else {
@@ -1016,7 +1016,7 @@ void game() {
                             if (itemIdx != Constants::NoItemFound) {
 
                                 Item &item = level.getItem(itemIdx);
-                                
+
                                 switch (item.itemType) {
 
                                     case ItemType::Potion_Small:
@@ -1032,10 +1032,10 @@ void game() {
                                             setSound(SoundIndex::Dead);
                                         #endif
                                         break;
-                                    
+
                                 }
 
-                                uint8_t idx = static_cast<uint8_t>(item.itemType) - static_cast<uint8_t>(ItemType::Potion_Small); 
+                                uint8_t idx = static_cast<uint8_t>(item.itemType) - static_cast<uint8_t>(ItemType::Potion_Small);
                                 prince.pushSequence(Stance::Drink_Tonic_Small_1_Start + (idx * 15), Stance::Drink_Tonic_Small_15_End + (idx * 15), Stance::Upright);
                                 item.itemType = ItemType::None;
 
@@ -1089,7 +1089,7 @@ void game() {
                                         enemy.pushSequence(Stance::Pickup_Sword_7_PutAway, Stance::Pickup_Sword_16_End, Stance::Upright);
                                         break;
 
-                                        
+
                                 }
 
                             }
@@ -1123,7 +1123,7 @@ void game() {
                         }
 
                         else if ((pressed & btnFacingDirection) || (pressed & btnOppositeDirection)) {
-                            
+
                             if (((pressed & RIGHT_BUTTON) && (prince.getDirection() == Direction::Right)) ||
                                  ((pressed & LEFT_BUTTON) &&  (prince.getDirection() == Direction::Left))) {
 
@@ -1139,19 +1139,19 @@ void game() {
                                     prince.pushSequence(Stance::Sword_Step_Back_1_Start, Stance::Sword_Step_Back_3_End, Stance::Sword_Normal);
                                     break;
                                 }
-                                
+
                             }
 
                         }
 
                         else {
-                                
+
                             if (pressed & btnOppositeDirection) {
 
                                 prince.pushSequence(Stance::Sword_Step_1_Start, Stance::Sword_Step_3_End, Stance::Sword_Normal);
 
                             }
-                                
+
                             if (pressed & btnFacingDirection) {
 
                                 prince.pushSequence(Stance::Sword_Step_Back_1_Start, Stance::Sword_Step_Back_3_End, Stance::Sword_Normal);
@@ -1163,7 +1163,7 @@ void game() {
                     #endif
 
                     break;
-                
+
 
                 default: break;
 
@@ -1194,27 +1194,14 @@ void game() {
 
                 #ifndef ALT_B_BUTTON
                     #ifndef SAVE_MEMORY_ENEMY
-                    if ((pressed & B_BUTTON) && prince.isEmpty() && (!sameLevelAsPrince || enemy.getHealth() == 0 || prince.getHealth() == 0)) {
+                    if ((pressed & B_BUTTON) && (pressed & A_BUTTON) && prince.isEmpty() && (!sameLevelAsPrince || enemy.getHealth() == 0 || prince.getHealth() == 0)) {
                     #else
-                    if ((pressed & B_BUTTON) && prince.isEmpty() && (!sameLevelAsPrince || prince.getHealth() == 0)) {
+                    if ((pressed & B_BUTTON) && (pressed & A_BUTTON) && prince.isEmpty() && (!sameLevelAsPrince || prince.getHealth() == 0)) {
                     #endif
 
-                        if (bCounter > 4) {
-
-                            gamePlay.gameState = GameState::Menu;
-                            menu.direction = Direction::Left;
-                            menu.cursor = static_cast<uint8_t>(MenuOption::Resume);
-                            bCounter = 0;
-
-                        }
-                        else {
-                            bCounter++;
-                        }
-                    
-                    }
-                    else {
-
-                        bCounter = 0;
+                        gamePlay.gameState = GameState::Menu;
+                        menu.direction = Direction::Left;
+                        menu.cursor = static_cast<uint8_t>(MenuOption::Resume);
 
                     }
 
@@ -1237,11 +1224,11 @@ void game() {
             }
 
                 if (justPressed & (A_BUTTON | B_BUTTON)) {
-    
+
                         switch (static_cast<MenuOption>(menu.cursor)) {
 
                             case MenuOption::Resume:
-                                menu.direction = Direction::Right;  
+                                menu.direction = Direction::Right;
                                 break;
 
                             case MenuOption::Sound:
@@ -1253,7 +1240,7 @@ void game() {
                                 cookie.hasSavedLevel = true;
                                 gamePlay.saves++;
                                 saveCookie(true);
-                                menu.direction = Direction::Right;  
+                                menu.direction = Direction::Right;
                                 break;
 
                             case MenuOption::Load:
@@ -1272,7 +1259,7 @@ void game() {
                                 break;
 
                             case MenuOption::MainMenu:
-                                gamePlay.gameState = GameState::Title_Init;  
+                                gamePlay.gameState = GameState::Title_Init;
                                 break;
 
                             case MenuOption::Clear:
@@ -1324,7 +1311,7 @@ void game() {
 
 
     // ---------------------------------------------------------------------------------------------------------------------------------------
-    //  
+    //
     //  Prince Queue handling ..
     //
     // ---------------------------------------------------------------------------------------------------------------------------------------
@@ -1353,7 +1340,7 @@ void game() {
                 case Stance::Leave_Gate_14_End:
 
                     gamePlay.gameState = GameState::Title;
-                    
+
                     #ifndef SAVE_MEMORY_SOUND
                         setSound(SoundIndex::Theme);
                     #endif
@@ -1361,7 +1348,7 @@ void game() {
                     if (cookie.getMode() == TitleScreenMode::MaxUniqueScenes) {
                         cookie.setMode(TitleScreenMode::CutScene_2);
                     }
-                    else {  
+                    else {
                         cookie.setMode(static_cast<TitleScreenMode>(static_cast<uint8_t>(cookie.getMode()) + 1));
                     }
 
@@ -1385,7 +1372,7 @@ void game() {
                     break;
 
                 case Stance::Jump_Up_Drop_A_4: // Ripple collapsible floors.
-                case Stance::Jump_Up_Drop_B_4: 
+                case Stance::Jump_Up_Drop_B_4:
 
                     level.rippleCollapsingFloors();
                     break;
@@ -1443,12 +1430,12 @@ void game() {
 
                                                     #ifndef SAVE_MEMORY_SOUND
                                                         setSound(SoundIndex::Thump);
-                                                    #endif 
+                                                    #endif
 
                                                     initFlash(prince, level, FlashType::None);
 
                                                     if (prince.decHealth(1) == 0) {
-                        
+
                                                         #if defined(DEBUG) && defined(DEBUG_PUSH_DEAD)
                                                         DEBUG_PRINTLN(F("pushDead 4"));
                                                         #endif
@@ -1466,7 +1453,7 @@ void game() {
                                             default:    // Dead!
 
                                                 if (!prince.getPotionFloat()) {
-                        
+
                                                     #if defined(DEBUG) && defined(DEBUG_PUSH_DEAD)
                                                     DEBUG_PRINTLN(F("pushDead 5"));
                                                     #endif
@@ -1488,7 +1475,7 @@ void game() {
 
                                     }
                                     else {
-                                        
+
                                         #if defined(DEBUG) && defined(DEBUG_PUSH_DEAD)
                                         DEBUG_PRINTLN(F("pushDead 6"));
                                         #endif
@@ -1555,7 +1542,7 @@ void game() {
                                 case Stance::Collide_Wall_P1_Start_End:
                                 case Stance::Collide_Wall_P0_Start_End:
                                 case Stance::Collide_Wall_M1_Start_End:
-                                case Stance::Collide_Wall_M2_Start_End: 
+                                case Stance::Collide_Wall_M2_Start_End:
                                     prince.setPrevStance(Stance::None);
                                     break;
 
@@ -1574,11 +1561,11 @@ void game() {
                             uint8_t itemIdx = activateSpikes(prince, level);
 
                             if (itemIdx == Constants::NoItemFound) {
-                                    
+
                                 switch (prince.getFalling()) {
 
                                     case 1:
-                                        
+
                                         #if defined(DEBUG) && defined(DEBUG_ACTION_FALLING)
                                         DEBUG_PRINTLN(F("Land and enter crouch, falling = 1"));
                                         #endif
@@ -1587,7 +1574,7 @@ void game() {
                                         break;
 
                                     case 2:     // OK but lose some health as well
-                                        
+
                                         #if defined(DEBUG) && defined(DEBUG_ACTION_FALLING)
                                         DEBUG_PRINTLN(F("Land and enter crouch, falling = 2"));
                                         #endif
@@ -1599,20 +1586,20 @@ void game() {
 
                                             #ifndef SAVE_MEMORY_SOUND
                                                 setSound(SoundIndex::Thump);
-                                            #endif 
+                                            #endif
 
-                                            initFlash(prince, level, FlashType::None);  
+                                            initFlash(prince, level, FlashType::None);
 
                                             if (prince.decHealth(1) == 0) {
 
                                                 #if defined(DEBUG) && defined(DEBUG_PUSH_DEAD)
                                                 DEBUG_PRINTLN(F("pushDead 7"));
                                                 #endif
-    
+
                                                 pushDead(prince, level, gamePlay, true, DeathType::Falling);
 
                                             }
-                                        
+
                                         }
 
                                         prince.setPotionFloat(false);
@@ -1680,7 +1667,7 @@ void game() {
                                     }
                                     break;
 
-                                default:  
+                                default:
                                     break;
 
                             }
@@ -1738,7 +1725,7 @@ void game() {
                 case Stance::Sword_Attack_5:
                     {
                         #ifndef SAVE_MEMORY_ENEMY
-                            
+
                             int16_t xDelta = prince.getPosition().x - enemy.getPosition().x;
                             int16_t yDelta = prince.getPosition().y - enemy.getPosition().y;
                             int16_t enemyPos = enemy.getPosition().x - (level.getXLocation() * Constants::TileWidth);
@@ -1746,7 +1733,7 @@ void game() {
                             if (enemyPos < 0 || enemyPos >= WIDTH) break;
 
                             if (abs(xDelta) <= Constants::StrikeDistance && yDelta == 0 && enemyIsVisible) {
-                            
+
                                 if (enemy.getEnemyType() == EnemyType::MirrorAttackingL12) {
 
 
@@ -1756,7 +1743,7 @@ void game() {
 
                                     #ifndef SAVE_MEMORY_SOUND
                                         setSound(SoundIndex::Strike);
-                                    #endif 
+                                    #endif
 
 
                                     // Decrease the health of the prince and see if he has died ..
@@ -1768,7 +1755,7 @@ void game() {
                                         #endif
 
                                         pushDead(prince, level, gamePlay, true, DeathType::SwordFight);
-                                        
+
                                         enemy.clear();
                                         enemy.pushSequence(Stance::Pickup_Sword_7_PutAway, Stance::Pickup_Sword_16_End, Stance::Upright);
                                         enemy.pushSequence(Stance::Sword_Attack_6, Stance::Sword_Attack_8_End, Stance::Upright);
@@ -1793,11 +1780,11 @@ void game() {
 
                                     #ifndef SAVE_MEMORY_SOUND
                                         setSound(SoundIndex::Strike);
-                                    #endif 
+                                    #endif
 
                                     if (enemy.decHealth(1) == 0) {
 
-                                        
+
                                         // If we just killed Jaffar then open the exit gate ..
 
                                         if (gamePlay.level == 12 && enemy.getEnemyType() == EnemyType::Guard && enemy.getStatus() == Status::Active) {
@@ -1814,7 +1801,7 @@ void game() {
 
 
                                         pushDead(enemy, true);
-                                        
+
                                         prince.clear();
                                         prince.pushSequence(Stance::Pickup_Sword_7_PutAway, Stance::Pickup_Sword_16_End, Stance::Upright);
                                         prince.pushSequence(Stance::Sword_Attack_6, Stance::Sword_Attack_8_End, Stance::Upright);
@@ -1855,7 +1842,7 @@ void game() {
                             if (x == 104 && y == 0) {
 
                                 enemy.setActiveEnemy(0);
-                                
+
                                 if (enemy.getStatus() == Status::Dormant_ActionReady) {
 
                                     enemy.setStatus(Status::Active);
@@ -1865,9 +1852,9 @@ void game() {
                                     enemy.pushSequence(Stance::Run_Start_1_Start, Stance::Run_Start_6_End);
 
                                     prince.setHealth(1);
-                                    
+
                                     Item &exitDoor = level.getItem(Constants::Item_ExitDoor);
-                                    
+
                                     if (exitDoor.data.exitDoor.direction != Direction::Up) {
 
                                         exitDoor.data.exitDoor.direction = Direction::Up;
@@ -1931,8 +1918,8 @@ void game() {
 
                 // Level 12: are we passing the Mirror?
 
-                #ifndef SAVE_MEMORY_ENEMY 
-                    
+                #ifndef SAVE_MEMORY_ENEMY
+
                     if (gamePlay.level == 12 && enemy.getEnemyType() == EnemyType::MirrorAfterChallengeL12 && enemy.getStatus() == Status::Active) {
 
                         Flash &flash = level.getFlash();
@@ -1941,7 +1928,7 @@ void game() {
 
                             int8_t enemyTileXIdx = level.coordToTileIndexX(enemy.getPosition().x);
                             int8_t enemyTileYIdx = level.coordToTileIndexY(enemy.getPosition().y);
-                            
+
                             if (tileXIdx == enemyTileXIdx && tileYIdx == enemyTileYIdx) {
 
                                 initFlash(enemy, level, FlashType::MirrorLevel12);
@@ -1964,7 +1951,7 @@ void game() {
                     Item &item = level.getItem(itemIdx);
 
                     switch (item.itemType) {
-                        
+
                         case ItemType::CollapsingFloor:
 
                             if (item.data.location.x == tileXIdx && item.data.location.y == tileYIdx && item.data.collapsingFloor.timeToFall == 0) {
@@ -1974,7 +1961,7 @@ void game() {
                             }
 
                             break;
-                        
+
                         case ItemType::AppearingFloor:
 
                             item.data.appearingFloor.visible = true;
@@ -1982,16 +1969,16 @@ void game() {
 
                         case ItemType::FloorButton1:
                         case ItemType::FloorButton_NoEdgeTile:
-                                                
+
                             level.openGate(item.data.floorButton.gate1, 255, 255);
                             level.openGate(item.data.floorButton.gate2, 255, 255);
                             level.openGate(item.data.floorButton.gate3, 255, 255);
                             item.data.floorButton.frame = 1;
                             item.data.floorButton.timeToFall = Constants::Button2FaillingTime;
-                            
+
 
                             // Does the shadow step forward?
-                            
+
                             if (gamePlay.level == 6 && item.data.floorButton.gate1 == 4) {
 
                                 item.data.floorButton.gate1 = 0;
@@ -2000,7 +1987,7 @@ void game() {
                                     enemy.pushSequence(Stance::Single_Step_1_Start, Stance::Single_Step_8_End, Stance::Upright);
                                     enemy.pushSequence(Stance::Delay_1_Start, Stance::Delay_8_End);
                                 #endif
-                                
+
                             }
 
                             break;
@@ -2022,7 +2009,7 @@ void game() {
                             {
 
                                 Item &exitDoor = level.getItem(Constants::Item_ExitDoor);
-                                
+
                                 if (exitDoor.data.exitDoor.direction != Direction::Up) {
 
                                     item.data.exitDoor_Button.frame = 1;
@@ -2032,7 +2019,7 @@ void game() {
                                     // Turn skeletons into fighters ..
 
                                     #ifndef SAVE_MEMORY_ENEMY
-                                        
+
                                         for (uint8_t i = 0; i < Constants::Items_Count; i++) {
 
                                             Item &item = level.getItem(i);
@@ -2073,9 +2060,9 @@ void game() {
                                     flash.frame = 5;
                                     flash.type = FlashType::SwordFight;
                                     flash.x = mirror.data.location.x;
-                                    flash.y = mirror.data.location.y;       
+                                    flash.y = mirror.data.location.y;
 
-                                }                          
+                                }
 
                             }
 
@@ -2088,7 +2075,7 @@ void game() {
                                 activateSpikes(prince, level);
 
                                 if (level.distToEdgeOfTile(prince.getDirection(), (level.getXLocation() * Constants::TileWidth) + prince.getX()) > 2) {
-                                        
+
                                     switch (prince.getStance()) {
 
                                         case Stance::Run_Start_2 ... Stance::Run_Start_6_End:  // Skip starting run ..
@@ -2161,7 +2148,7 @@ void game() {
     if (gamePlay.gameState == GameState::Game) {
 
         // Blade?
-        
+
         if (prince.getHealth() > 0) {
 
             handleBlades();
@@ -2172,13 +2159,13 @@ void game() {
 
 
     // ---------------------------------------------------------------------------------------------------------------------------------------
-    //  
+    //
     //  Enemy Queue handling ..
     //
     // ---------------------------------------------------------------------------------------------------------------------------------------
 
     #ifndef SAVE_MEMORY_ENEMY
-        
+
         if (enemy.getStackFrame() == 0) {
 
             if (enemy.getStatus() == Status::Active && !enemy.isEmpty()) {
@@ -2217,7 +2204,7 @@ void game() {
 
                                         #ifndef SAVE_MEMORY_SOUND
                                             setSound(SoundIndex::Strike);
-                                        #endif 
+                                        #endif
 
 
                                         // If they are facing the same direction then the prince has been stabbed in the back .. immediate death.
@@ -2272,7 +2259,7 @@ void game() {
 
                                     }
 
-                                    break;                            
+                                    break;
 
                             }
 
@@ -2287,7 +2274,7 @@ void game() {
                             gate.data.gate.closingDelay = 10;
                             gate.data.gate.closingDelayMax = 255;
                             gate.data.gate.movement = GateMovement::GoingDown;
-                            gate.itemType = ItemType::Gate_StayClosed;           
+                            gate.itemType = ItemType::Gate_StayClosed;
                         }
                         break;
 
@@ -2295,7 +2282,7 @@ void game() {
                 }
 
 
-                // Move enemy .. 
+                // Move enemy ..
 
                 getStance_Offsets(enemy.getDirection(), offset, enemy.getStance());
                 enemy.incX(offset.x * (newStance < 0 ? -1 : 1));
@@ -2309,7 +2296,7 @@ void game() {
 
 
     // ---------------------------------------------------------------------------------------------------------------------------------------
-    //  
+    //
     //  Falling ..
     //
     // ---------------------------------------------------------------------------------------------------------------------------------------
@@ -2332,7 +2319,7 @@ void game() {
         if (!prince.getIgnoreWallCollisions() && prince.isFootDown() && canFall == CanFallResult::CanFall && prince.getFalling() == 0) {
 
             uint8_t distToEdgeOfCurrentTile = level.distToEdgeOfTile(prince.getDirection(), (level.getXLocation() * Constants::TileWidth) + prince.getX());
-                                                
+
             #if defined(DEBUG) && defined(DEBUG_ACTION_FALLING)
             DEBUG_PRINTLN(F("Starting to fall, setFalling(1)"));
             #endif
@@ -2345,7 +2332,7 @@ void game() {
             // If we are at the edge of a tile and their is an adjacent wall, then we need to fall straight down otherwise fall in an arc ..
 
             bool fallStraight = false;
-    
+
             if (distToEdgeOfCurrentTile <= 7) {
 
                 int8_t tileXIdx = level.coordToTileIndexX(prince.getPosition().x) + (prince.getDirection() == Direction::Left ? -1 : 1) - level.getXLocation();
@@ -2368,7 +2355,7 @@ void game() {
                 DEBUG_PRINT(F("Falling straight down, distToEdge: "));
                 DEBUG_PRINTLN(distToEdgeOfCurrentTile);
                 #endif
-                
+
                 switch (distToEdgeOfCurrentTile) {
 
                     case 0:
@@ -2505,11 +2492,11 @@ void game() {
                 prince.push(Stance::Collide_Wall_P2_Start_End);
                 break;
 
-        }                    
+        }
 
 
         // Do we need to apply some vertical adjustment?
-        
+
         uint8_t adj = (prince.getY() - 25) % 31;
 
         #if defined(DEBUG) && defined(DEBUG_VERT_ADJ)
@@ -2528,7 +2515,7 @@ void game() {
             FX::seekData(startPos);
 
             for (uint8_t i = adj; i < adj + 5; i++) {
-                
+
                 uint8_t adjustment = FX::readPendingUInt8();
 
                 if (adjustment > 0) {
@@ -2616,7 +2603,7 @@ void game() {
     // Render scene ..
 
     render(sameLevelAsPrince);
-    
+
     #ifndef SAVE_MEMORY_OTHER
     if (gamePlay.gameState == GameState::Menu) {
         renderMenu();
@@ -2655,7 +2642,7 @@ void game() {
 }
 
 
-void moveBackwardsWithSword(Prince & prince) { 
+void moveBackwardsWithSword(Prince & prince) {
 
     if (level.canMoveForward(prince, Action::Step, prince.getOppositeDirection(), Constants::OppositeDirection_Offset * 2)) {
 
@@ -2674,7 +2661,7 @@ void moveBackwardsWithSword(Prince & prince) {
 }
 
 
-void moveBackwardsWithSword(BaseEntity entity, BaseStack stack) { 
+void moveBackwardsWithSword(BaseEntity entity, BaseStack stack) {
 
     if (level.canMoveForward(entity, Action::SwordStep2, entity.getOppositeDirection(), Constants::OppositeDirection_Offset)) {
 
