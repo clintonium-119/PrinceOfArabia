@@ -20,7 +20,7 @@ This game is only compatible with an *FX* enabled Arduboy.
 ### Running
 
 ### Jumping
-Press <kbd>🅐</kbd> to jump over obstacles.   
+Press <kbd>🅐</kbd> to jump over obstacles.
 For longer jumps, run and jump <kbd>🅐</kbd>+<kbd>◄</kbd>/<kbd>►</kbd>.
 
 ### Climbing
@@ -33,14 +33,14 @@ Ducking down.
 Shuffling along.
 
 ### In game menu
-Press <kbd>🅑</kbd> to select the in game menu. This allows you to... 
+Press <kbd>🅑</kbd> to select the in game menu. This allows you to...
 
 ## Objects
 
 ### Sword
 Crouch down and pickup with <kbd>🅐</kbd> to collect the sword.
 When an enemy appears, press <kbd>🅑</kbd> to unsheathe the sword and start fighting. It is not possible to bring-up the menu (or save the game!) during a fight.
-During a fight, press <kbd>🅐</kbd> to sheath sword. It is not possible to jump while the sword is drawn. 
+During a fight, press <kbd>🅐</kbd> to sheath sword. It is not possible to jump while the sword is drawn.
 
 
 ### Potions
@@ -70,12 +70,51 @@ Jump over these traps or move very carefully to avoid a spiky end!
 ### Shadowy figures
 Legend tells, that these forbidden corridors will reveal our darkest side.
 
+## @clintonium-119 planned updates and fixes
+
+### Fixes
+- ~~Always start new games with 3 health/max health~~
+  - ~~If a game was saved with more health available, this was carrying forward on new games~~
+- ~~Always start new games with no sword~~
+  - ~~If a game was saved with sword available, this was carrying forward on new games~~
+
+
+### USE_CLASSIC_CONTROLS flag
+- ~~A + B to open menu~~
+  - Currently does standing jump if room for it - need to disable jump if B is also pressed
+- ~~Automatically draw sword if encountering enemy~~
+  - Should not draw if gap between enemy - need to check
+- ~~Down to sheathe sword~~
+  - TBD: if sheathed, should not draw again automatically for a second or so to allow movement before automatically drawing again.
+- ~~A or UP to block~~
+- Require B to grab ledges while jumping, and only hang when dropping levels if B is held as well
+
+### Movement Tweaks
+- No longer automatically grabbing ledges while jumping - need B button pressed
+- Can always grab and hang on a 3 tile standing jump
+  - This works when there's a wall, but not if there's a safe landing, such as the first 3-tile jump opportunity in level 2
+- Can trigger tile by hanging
+- Doors close slowly rather than abruptly, if possible, allowing to crouch hop through if there's still space
+- Careful steps will not walk off the edge the first time an edge is reached
+  - Also, if possible, when close to edge, but not quite there, last careful step will only take kid to edge
+
+### Combat Tweaks
+- Different AI patterns for different enemies, following original source code pattern
+- Different sound for player vs enemy hits to make it clearer how the battle is going - can be hard to tell on the small display who hit who
+- Determine if more knockback is needed for strikes
+- Investigate blocking -- seems hard to tell if it's successful, and harder to pull off than in original
+  - Should add unique blocking sound
+
+### Visual Tweaks (if memory allows)
+- Add a 'fat' enemy - he's kind of a classic staple, with a unique fighting style
+- Add Jaffar as final fighter (haven't checked if this is implemented or not)
+
 ---
 
 ## Credits
 
-Concept: Jordan Mechner.  
-Development: @filmote, @MrBlinky (/Mr.Blinky), @ace-dent (/acedent)  
-Graphics: /clintonium-119, @vampirics  
-Music: @ajsaucier (/raspberrybrain)  
+Concept: Jordan Mechner.
+Development: @filmote, @MrBlinky (/Mr.Blinky), @ace-dent (/acedent)
+Graphics: /clintonium-119, @vampirics
+Music: @ajsaucier (/raspberrybrain)
 
