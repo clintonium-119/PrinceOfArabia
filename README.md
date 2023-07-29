@@ -106,6 +106,8 @@ Legend tells, that these forbidden corridors will reveal our darkest side.
 - Add a 'fat' enemy - he's kind of a classic staple, with a unique fighting style
 - Add Jaffar as final fighter (haven't checked if this is implemented or not)
 - Spikes should trigger (without harm) when jumping over them
+- Require pushing up to exit level
+- Reduce time for tiles falling when hitting from below
 
 ---
 
