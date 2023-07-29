@@ -4,16 +4,13 @@ void loadItems(uint8_t level, Prince &prince) {
     FX::readBytes((uint8_t*)&this->items, Constants::Items_Count * sizeof(Item));
     FX::readEnd();
 
-#ifdef DEBUG_LEVELS
     prince.setSword(level > 1);
-#endif
-
 }
 
 void loadMap(GamePlay &gamePlay) {
 
     uint8_t offset = 0;
-    
+
     if (this->xLoc) {
         offset = this->xLoc - 6;
     }
@@ -23,7 +20,7 @@ void loadMap(GamePlay &gamePlay) {
     for (uint8_t x = 0; x < 5 * 22; x++) {
 
         *(&bg[0][0] + x) = TILE_NONE;
-        
+
     }
 
     for (int8_t y = this->yLoc - 1; y < (int8_t)(this->yLoc + 4); y++) {
