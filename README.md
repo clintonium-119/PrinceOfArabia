@@ -81,7 +81,6 @@ Legend tells, that these forbidden corridors will reveal our darkest side.
 
 ### `USE_CLASSIC_CONTROLS` flag
 - ~~A + B to open menu~~
-  - ~~Currently does standing jump if room for it - need to disable jump if B is also pressed~~
 - ~~Down to sheathe sword~~
 - ~~A or UP to block~~
 - ~~B to pick up items~~
