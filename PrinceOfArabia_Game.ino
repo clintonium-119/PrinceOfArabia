@@ -236,9 +236,11 @@ void game() {
 
 
         // If within distance, we can draw swords if we have one!
-
+        #ifdef USE_CLASSIC_CONTROLS
+        if (sameLevelAsPrince && prince.getSword() && prince.getStance() == Stance::Upright && prince.isEmpty() && enemy.getHealth() > 0 && enemy.getEnemyType() != EnemyType::MirrorAfterChallengeL12) {
+        #else
         if (justPressed & B_BUTTON && sameLevelAsPrince && prince.getSword() && prince.getStance() == Stance::Upright && prince.isEmpty() && enemy.getHealth() > 0 && enemy.getEnemyType() != EnemyType::MirrorAfterChallengeL12) {
-
+        #endif
             if (gamePlay.level != 4 || level.getXLocation() < 100) {
 
                 prince.pushSequence(Stance::Draw_Sword_1_Start, Stance::Draw_Sword_6_End, Stance::Sword_Normal);
@@ -1069,8 +1071,11 @@ void game() {
                 case Stance::Sword_Normal:
 
                     #ifndef SAVE_MEMORY_ENEMY
-
+                        #ifdef USE_CLASSIC_CONTROLS
+                        if ((pressed & DOWN_BUTTON) ) {
+                        #else
                         if ((pressed & A_BUTTON) ) {
+                        #endif
 
                             prince.pushSequence(Stance::Pickup_Sword_7_PutAway, Stance::Pickup_Sword_16_End, Stance::Upright);
 
@@ -1102,7 +1107,11 @@ void game() {
 
                         }
 
-                        else if (pressed & UP_BUTTON) { // Block attack?
+                        #ifdef USE_CLASSIC_CONTROLS
+                        else if ((pressed & UP_BUTTON) || (pressed & A_BUTTON)) { // Block attack?
+                        #else
+                        else if (pressed & UP_BUTTON) {
+                        #endif
 
                             switch (enemy.getStance()) {
 
