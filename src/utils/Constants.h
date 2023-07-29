@@ -6,23 +6,23 @@
 
     #define SAVE_MEMORY_SYSTEM_BUTTONS
     #define SAVE_MEMORY_USB
-    #define _SAVE_MEMORY_PPOT
+    #define SAVE_MEMORY_PPOT
     #define _SAVE_MEMORY_OTHER
     #define _SAVE_MEMORY_SOUND
     #define _SAVE_MEMORY_ENEMY
-    #define _SAVE_MEMORY_INVADER
+    #define SAVE_MEMORY_INVADER
     #define _ALT_B_BUTTON
-    #define GIVE_SWORD
+    #define _GIVE_SWORD
 
     #define LEVEL_DATA_FROM_FX
     #define SAVE_TO_FX
     #define STARTING_LEVEL 1
     #define MAX_LEVEL 13
     #define _DEBUG_CUT_SCENES
-    #define DEBUG_LEVELS
+    #define _DEBUG_LEVELS
 
-    #define POP_OR_POA
-    #define _POP_ONLY
+    #define _POP_OR_POA
+    #define POP_ONLY
     #define _POA_ONLY
     #define USE_LED
 
@@ -98,8 +98,8 @@ constexpr uint16_t None                                          = 0;
 
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /*                                                               01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
-#define CROUCH_SEQ                                               126,   109,   110,   
-#define CROUCH_OFFSETS                                           0,0,   0,0,   0,0, 
+#define CROUCH_SEQ                                               126,   109,   110,
+#define CROUCH_OFFSETS                                           0,0,   0,0,   0,0,
 constexpr uint16_t Crouch_1_Start                                = Stance::None + 1;
 constexpr uint16_t Crouch_2                                      = Stance::Crouch_1_Start + 1;
 constexpr uint16_t Crouch_3_End                                  = Stance::Crouch_2 + 1;
@@ -107,7 +107,7 @@ constexpr uint16_t Crouch_3_End                                  = Stance::Crouc
 
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /*                                                               01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
-#define RUN_START_SEQ                                            1,     2,     3,     4,     5,     6, 
+#define RUN_START_SEQ                                            1,     2,     3,     4,     5,     6,
 #define RUN_START_OFFSETS                                        0,0,   1,0,   1,0,   1,0,   2,0,   2,0,
 constexpr uint16_t Run_Start_1_Start                             = Stance::Crouch_3_End + 1;
 constexpr uint16_t Run_Start_2                                   = Stance::Run_Start_1_Start + 1;
@@ -125,10 +125,10 @@ constexpr uint16_t Run_Repeat_1_Start                            = Stance::Run_S
 constexpr uint16_t Run_Repeat_2                                  = Stance::Run_Repeat_1_Start + 1;
 constexpr uint16_t Run_Repeat_3                                  = Stance::Run_Repeat_2 + 1;
 constexpr uint16_t Run_Repeat_4                                  = Stance::Run_Repeat_3 + 1;
-constexpr uint16_t Run_Repeat_5_Mid                              = Stance::Run_Repeat_4 + 1; 
-constexpr uint16_t Run_Repeat_6                                  = Stance::Run_Repeat_5_Mid + 1; 
-constexpr uint16_t Run_Repeat_7                                  = Stance::Run_Repeat_6 + 1; 
-constexpr uint16_t Run_Repeat_8_End                              = Stance::Run_Repeat_7 + 1; 
+constexpr uint16_t Run_Repeat_5_Mid                              = Stance::Run_Repeat_4 + 1;
+constexpr uint16_t Run_Repeat_6                                  = Stance::Run_Repeat_5_Mid + 1;
+constexpr uint16_t Run_Repeat_7                                  = Stance::Run_Repeat_6 + 1;
+constexpr uint16_t Run_Repeat_8_End                              = Stance::Run_Repeat_7 + 1;
 
 
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
@@ -141,8 +141,8 @@ constexpr uint16_t Upright                                       = Stance::Run_R
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /*                                                               01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
 #define JUMP_UP_A_SEQ                                            90,    91,    92,    93,    94,    95,    96,    97,    98,    99,    100,   101,   102,   103,
-#define JUMP_UP_A_OFFSETS                                        0,0,   0,0,   0,0,   -1,0,  -1,0,  0,0,   0,0,   0,0,   0,0,   1,0,   1,0,   0,0,   0,0,   0,0,                                             
-constexpr uint16_t Jump_Up_A_1_Start                             = Stance::Upright + 1; 
+#define JUMP_UP_A_OFFSETS                                        0,0,   0,0,   0,0,   -1,0,  -1,0,  0,0,   0,0,   0,0,   0,0,   1,0,   1,0,   0,0,   0,0,   0,0,
+constexpr uint16_t Jump_Up_A_1_Start                             = Stance::Upright + 1;
 constexpr uint16_t Jump_Up_A_2                                   = Stance::Jump_Up_A_1_Start + 1;
 constexpr uint16_t Jump_Up_A_3                                   = Stance::Jump_Up_A_2 + 1;
 constexpr uint16_t Jump_Up_A_4                                   = Stance::Jump_Up_A_3 + 1;
@@ -161,7 +161,7 @@ constexpr uint16_t Jump_Up_A_14_End                              = Stance::Jump_
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /* Used when jumping up from a lower ledge to an upper one, such as in the left handside of platforms in level one.  The offset of x = -4 allows a player to jump 'straight' up to a ledge.              */
 /*                                                               01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
-#define JUMP_UP_B_SEQ                                            90,    91,    92,    93,    94,    95,    96,    97,    98,    99,    100,   101,   102,   103,    
+#define JUMP_UP_B_SEQ                                            90,    91,    92,    93,    94,    95,    96,    97,    98,    99,    100,   101,   102,   103,
 #define JUMP_UP_B_OFFSETS                                        0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   -1,0,  -1,0,  -1,0,  -1,0,  0,0,
 constexpr uint16_t Jump_Up_B_1_Start                             = Stance::Jump_Up_A_14_End + 1;
 constexpr uint16_t Jump_Up_B_2                                   = Stance::Jump_Up_B_1_Start + 1;
@@ -182,11 +182,11 @@ constexpr uint16_t Jump_Up_B_14_End                              = Stance::Jump_
 /*                                                               01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
 #define STANDING_TURN_SEQ                                        27,    28,    29,    30,    31,
 #define STANDING_TURN_OFFSETS                                    0,0,   -1,0,  1,0,   0,0,   0,0,
-constexpr uint16_t Standing_Turn_1_Start                         = Stance::Jump_Up_B_14_End + 1; 
+constexpr uint16_t Standing_Turn_1_Start                         = Stance::Jump_Up_B_14_End + 1;
 constexpr uint16_t Standing_Turn_2                               = Stance::Standing_Turn_1_Start + 1;
 constexpr uint16_t Standing_Turn_3                               = Stance::Standing_Turn_2 + 1;
-constexpr uint16_t Standing_Turn_4                               = Stance::Standing_Turn_3 + 1; 
-constexpr uint16_t Standing_Turn_5_End                           = Stance::Standing_Turn_4 + 1; 
+constexpr uint16_t Standing_Turn_4                               = Stance::Standing_Turn_3 + 1;
+constexpr uint16_t Standing_Turn_5_End                           = Stance::Standing_Turn_4 + 1;
 
 
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
@@ -214,7 +214,7 @@ constexpr uint16_t Standing_Jumps_Start                          = Stance::Runni
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /*  Dist: 36                                                     01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
 #define STANDING_JUMP_36_SEQ                                     45,    46,    47,    48,    49,    50,    51,    52,    53,    54,    55,    56,    57,    58,    59,    60,    61,    62,
-#define STANDING_JUMP_36_OFFSETS                                 0,0,   0,0,   2,0,   2,0,   2,0,   2,0,   2,0,   3,0,   3,0,   3,0,   3,0,   4,0,   2,0,   2,0,   2,0,   2,0,   1,0,   1,0, 
+#define STANDING_JUMP_36_OFFSETS                                 0,0,   0,0,   2,0,   2,0,   2,0,   2,0,   2,0,   3,0,   3,0,   3,0,   3,0,   4,0,   2,0,   2,0,   2,0,   2,0,   1,0,   1,0,
 constexpr uint16_t Standing_Jump_36_1_Start                      = Stance::Standing_Jumps_Start;
 constexpr uint16_t Standing_Jump_36_2                            = Stance::Standing_Jump_36_1_Start + 1;
 constexpr uint16_t Standing_Jump_36_3                            = Stance::Standing_Jump_36_2 + 1;
@@ -238,7 +238,7 @@ constexpr uint16_t Standing_Jump_36_18_End                       = Stance::Stand
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /*  Dist: 32                                                     01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
 #define STANDING_JUMP_32_SEQ                                     45,    46,    47,    48,    49,    50,    51,    52,    55,    56,    57,    58,    59,    60,    61,    62,
-#define STANDING_JUMP_32_OFFSETS                                 0,0,   0,0,   2,0,   2,0,   3,0,   4,0,   2,0,   3,0,   3,0,   3,0,   3,0,   3,0,   2,0,   1,0,   1,0,   0,0, 
+#define STANDING_JUMP_32_OFFSETS                                 0,0,   0,0,   2,0,   2,0,   3,0,   4,0,   2,0,   3,0,   3,0,   3,0,   3,0,   3,0,   2,0,   1,0,   1,0,   0,0,
 constexpr uint16_t Standing_Jump_32_1_Start                      = Stance::Standing_Jump_36_18_End + 1;
 constexpr uint16_t Standing_Jump_32_2                            = Stance::Standing_Jump_32_1_Start + 1;
 constexpr uint16_t Standing_Jump_32_3                            = Stance::Standing_Jump_32_2 + 1;
@@ -260,7 +260,7 @@ constexpr uint16_t Standing_Jump_32_16_End                       = Stance::Stand
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /*  Dist: 28                                                     01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
 #define STANDING_JUMP_28_SEQ                                     45,    46,    47,    48,    49,    50,    51,    52,    55,    56,    57,    58,    59,    60,    61,    62,
-#define STANDING_JUMP_28_OFFSETS                                 0,0,   0,0,   2,0,   2,0,   2,0,   3,0,   3,0,   3,0,   3,0,   3,0,   3,0,   2,0,   2,0,   0,0,   0,0,   0,0, 
+#define STANDING_JUMP_28_OFFSETS                                 0,0,   0,0,   2,0,   2,0,   2,0,   3,0,   3,0,   3,0,   3,0,   3,0,   3,0,   2,0,   2,0,   0,0,   0,0,   0,0,
 constexpr uint16_t Standing_Jump_28_1_Start                      = Stance::Standing_Jump_32_16_End + 1;
 constexpr uint16_t Standing_Jump_28_2                            = Stance::Standing_Jump_28_1_Start + 1;
 constexpr uint16_t Standing_Jump_28_3                            = Stance::Standing_Jump_28_2 + 1;
@@ -282,7 +282,7 @@ constexpr uint16_t Standing_Jump_28_16_End                       = Stance::Stand
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /*  Dist: 24                                                     01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
 #define STANDING_JUMP_24_SEQ                                     45,    46,    47,    48,    49,    50,    51,    52,    55,    56,    57,    58,    59,    60,    61,    62,
-#define STANDING_JUMP_24_OFFSETS                                 0,0,   0,0,   2,0,   2,0,   2,0,   2,0,   1,0,   2,0,   2,0,   3,0,   3,0,   2,0,   1,0,   1,0,   1,0,   0,0, 
+#define STANDING_JUMP_24_OFFSETS                                 0,0,   0,0,   2,0,   2,0,   2,0,   2,0,   1,0,   2,0,   2,0,   3,0,   3,0,   2,0,   1,0,   1,0,   1,0,   0,0,
 constexpr uint16_t Standing_Jump_24_1_Start                      = Stance::Standing_Jump_28_16_End + 1;
 constexpr uint16_t Standing_Jump_24_2                            = Stance::Standing_Jump_24_1_Start + 1;
 constexpr uint16_t Standing_Jump_24_3                            = Stance::Standing_Jump_24_2 + 1;
@@ -305,7 +305,7 @@ constexpr uint16_t Standing_Jump_24_16_End                       = Stance::Stand
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /*  Dist: 20                                                     01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
 #define STANDING_JUMP_20_SEQ                                     45,    46,    47,    48,    49,    50,    51,    52,    55,    56,    57,    58,    59,    60,    61,    62,
-#define STANDING_JUMP_20_OFFSETS                                 0,0,   0,0,   2,0,   2,0,   2,0,   1,0,   1,0,   2,0,   2,0,   2,0,   2,0,   1,0,   1,0,   1,0,   1,0,   0,0, 
+#define STANDING_JUMP_20_OFFSETS                                 0,0,   0,0,   2,0,   2,0,   2,0,   1,0,   1,0,   2,0,   2,0,   2,0,   2,0,   1,0,   1,0,   1,0,   1,0,   0,0,
 constexpr uint16_t Standing_Jump_20_1_Start                      = Stance::Standing_Jump_24_16_End + 1;
 constexpr uint16_t Standing_Jump_20_2                            = Stance::Standing_Jump_20_1_Start + 1;
 constexpr uint16_t Standing_Jump_20_3                            = Stance::Standing_Jump_20_2 + 1;
@@ -472,7 +472,7 @@ constexpr uint16_t Running_Jumps_Start                           = Stance::Stand
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /*  Dist: 28                                                     01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
 // #define STANDING_JUMP_SHORT_6_SEQ                                45,    46,    47,    48,    49,    50,    51,    52,    55,    56,    57,    58,    59,    60,    61,    62,
-// #define STANDING_JUMP_SHORT_6_OFFSETS                            0,0,   0,0,   2,0,   2,0,   2,0,   3,0,   2,0,   3,0,   3,0,   3,0,   3,0,   2,0,   1,0,   1,0,   1,0,   0,0, 
+// #define STANDING_JUMP_SHORT_6_OFFSETS                            0,0,   0,0,   2,0,   2,0,   2,0,   3,0,   2,0,   3,0,   3,0,   3,0,   3,0,   2,0,   1,0,   1,0,   1,0,   0,0,
 // constexpr uint16_t Standing_Jump_Short_6_1_Start                 = Stance::Standing_Jump_GL_6_18_End + 1;
 // constexpr uint16_t Standing_Jump_Short_6_2                       = Stance::Standing_Jump_Short_6_1_Start + 1;
 // constexpr uint16_t Standing_Jump_Short_6_3                       = Stance::Standing_Jump_Short_6_2 + 1;
@@ -536,8 +536,8 @@ constexpr uint16_t Running_Jump_Short_6_7_End                    = Stance::Runni
 
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /*  Dist 16                                                      01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
-#define RUNNING_JUMP_1_2_SEQ                                     20,    21,    25,    26,    59,    60,    61,    62,    
-#define RUNNING_JUMP_1_2_OFFSETS                                 2,0,   3,0,   4,-3,  3,3,   2,0,   1,0,   0,0,   1,0,   
+#define RUNNING_JUMP_1_2_SEQ                                     20,    21,    25,    26,    59,    60,    61,    62,
+#define RUNNING_JUMP_1_2_OFFSETS                                 2,0,   3,0,   4,-3,  3,3,   2,0,   1,0,   0,0,   1,0,
 constexpr uint16_t Running_Jump_1_2_1_Start                      = Stance::Running_Jump_Short_6_7_End + 1;
 constexpr uint16_t Running_Jump_1_2_2                            = Stance::Running_Jump_1_2_1_Start + 1;
 constexpr uint16_t Running_Jump_1_2_3                            = Stance::Running_Jump_1_2_2 + 1;
@@ -550,8 +550,8 @@ constexpr uint16_t Running_Jump_1_2_8_End                        = Stance::Runni
 
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /*  Dist 20                                                      01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
-#define RUNNING_JUMP_1_6_SEQ                                     20,    21,    23,    25,    26,    59,    60,    61,    62,    
-#define RUNNING_JUMP_1_6_OFFSETS                                 2,0,   3,0,   3,0,   4,-3,  3,3,   2,0,   2,0,   0,0,   1,0,   
+#define RUNNING_JUMP_1_6_SEQ                                     20,    21,    23,    25,    26,    59,    60,    61,    62,
+#define RUNNING_JUMP_1_6_OFFSETS                                 2,0,   3,0,   3,0,   4,-3,  3,3,   2,0,   2,0,   0,0,   1,0,
 constexpr uint16_t Running_Jump_1_6_1_Start                      = Stance::Running_Jump_1_2_8_End + 1;
 constexpr uint16_t Running_Jump_1_6_2                            = Stance::Running_Jump_1_6_1_Start + 1;
 constexpr uint16_t Running_Jump_1_6_3                            = Stance::Running_Jump_1_6_2 + 1;
@@ -565,8 +565,8 @@ constexpr uint16_t Running_Jump_1_6_9_End                        = Stance::Runni
 
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /*  Dist 24                                                      01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
-#define RUNNING_JUMP_1_10_SEQ                                    20,    21,    22,    23,    25,    26,    59,    60,    61,    62,    
-#define RUNNING_JUMP_1_10_OFFSETS                                2,0,   3,0,   3,0,   3,0,   4,-3,  3,3,   3,0,   2,0,   0,0,  1,0,   
+#define RUNNING_JUMP_1_10_SEQ                                    20,    21,    22,    23,    25,    26,    59,    60,    61,    62,
+#define RUNNING_JUMP_1_10_OFFSETS                                2,0,   3,0,   3,0,   3,0,   4,-3,  3,3,   3,0,   2,0,   0,0,  1,0,
 constexpr uint16_t Running_Jump_1_10_1_Start                     = Stance::Running_Jump_1_6_9_End + 1;
 constexpr uint16_t Running_Jump_1_10_2                           = Stance::Running_Jump_1_10_1_Start + 1;
 constexpr uint16_t Running_Jump_1_10_3                           = Stance::Running_Jump_1_10_2 + 1;
@@ -923,7 +923,7 @@ constexpr uint16_t Running_Jumps_End                             = Stance::Runni
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /*                                                               01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
 #define SINGLE_STEP_SEQ                                          63,    64,    65,    66,    71,    72,    73,    74,
-#define SINGLE_STEP_OFFSETS                                      1,0,   1,0,   1,0,   1,0,   1,0,   1,0,   1,0,   1,0, 
+#define SINGLE_STEP_OFFSETS                                      1,0,   1,0,   1,0,   1,0,   1,0,   1,0,   1,0,   1,0,
 constexpr uint16_t Single_Step_1_Start                           = Stance::Running_Jumps_End + 1;
 constexpr uint16_t Single_Step_2                                 = Stance::Single_Step_1_Start + 1;
 constexpr uint16_t Single_Step_3                                 = Stance::Single_Step_2 + 1;
@@ -936,7 +936,7 @@ constexpr uint16_t Single_Step_8_End                             = Stance::Singl
 
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /*                                                               01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
-#define STOPPING_SEQ                                             5,     4,     3,     2,     1, 
+#define STOPPING_SEQ                                             5,     4,     3,     2,     1,
 #define STOPPING_OFFSETS                                         0,0,   0,0,   0,0,   0,0,   0,0,
 constexpr uint16_t Stopping_1_Start                              = Stance::Single_Step_8_End + 1;
 constexpr uint16_t Stopping_2                                    = Stance::Stopping_1_Start + 1;
@@ -948,7 +948,7 @@ constexpr uint16_t Stopping_5_End                                = Stance::Stopp
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /*                                                               01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
 #define CLIMBING_SEQ                                             75,    76,    77,    78,    79,    80,    81,    82,    83,    84,    85,    86,    87,    88,    89,
-#define CLIMBING_OFFSETS                                         0,0,   0,0,   0,0,   -1,-1, 0,0,   0,0,   0,0,   0,0,   1,0,   0,0,   1,0,   0,0,   0,0,   0,0,   0,0, 
+#define CLIMBING_OFFSETS                                         0,0,   0,0,   0,0,   -1,-1, 0,0,   0,0,   0,0,   0,0,   1,0,   0,0,   1,0,   0,0,   0,0,   0,0,   0,0,
 constexpr uint16_t Climbing_1_Start                              = Stance::Stopping_5_End + 1;
 constexpr uint16_t Climbing_2                                    = Stance::Climbing_1_Start + 1;
 constexpr uint16_t Climbing_3                                    = Stance::Climbing_2 + 1;
@@ -968,8 +968,8 @@ constexpr uint16_t Climbing_15_End                               = Stance::Climb
 
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /*                                                               01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
-#define SMALL_STEP_SEQ                                           63,    64,    65,    72,    73,    74,  
-#define SMALL_STEP_OFFSETS                                       1,0,   1,0,   1,0,   1,0,   0,0,   0,0, 
+#define SMALL_STEP_SEQ                                           63,    64,    65,    72,    73,    74,
+#define SMALL_STEP_OFFSETS                                       1,0,   1,0,   1,0,   1,0,   0,0,   0,0,
 constexpr uint16_t Small_Step_1_Start                            = Stance::Climbing_15_End + 1;
 constexpr uint16_t Small_Step_2                                  = Stance::Small_Step_1_Start + 1;
 constexpr uint16_t Small_Step_3                                  = Stance::Small_Step_2 + 1;
@@ -982,7 +982,7 @@ constexpr uint16_t Small_Step_6_End                              = Stance::Small
 /*                                                               01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
 #define JUMP_UP_DROP_A_SEQ                                       104,   105,   106,   107,   108,
 #define JUMP_UP_DROP_A_OFFSETS                                   0,0,   0,0,   0,0,   0,0,   0,0,
-constexpr uint16_t Jump_Up_Drop_A_1_Start                        = Stance::Small_Step_6_End + 1;  
+constexpr uint16_t Jump_Up_Drop_A_1_Start                        = Stance::Small_Step_6_End + 1;
 constexpr uint16_t Jump_Up_Drop_A_2                              = Stance::Jump_Up_Drop_A_1_Start + 1;
 constexpr uint16_t Jump_Up_Drop_A_3                              = Stance::Jump_Up_Drop_A_2 + 1;
 constexpr uint16_t Jump_Up_Drop_A_4                              = Stance::Jump_Up_Drop_A_3 + 1;
@@ -991,9 +991,9 @@ constexpr uint16_t Jump_Up_Drop_A_5_End                          = Stance::Jump_
 
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /*                                                               01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
-#define JUMP_UP_DROP_B_SEQ                                       104,   105,   106,   107,   108,   
-#define JUMP_UP_DROP_B_OFFSETS                                   1,0,   1,0,   1,0,   1,0,   0,0, 
-constexpr uint16_t Jump_Up_Drop_B_1_Start                        = Stance::Jump_Up_Drop_A_5_End + 1; 
+#define JUMP_UP_DROP_B_SEQ                                       104,   105,   106,   107,   108,
+#define JUMP_UP_DROP_B_OFFSETS                                   1,0,   1,0,   1,0,   1,0,   0,0,
+constexpr uint16_t Jump_Up_Drop_B_1_Start                        = Stance::Jump_Up_Drop_A_5_End + 1;
 constexpr uint16_t Jump_Up_Drop_B_2                              = Stance::Jump_Up_Drop_B_1_Start + 1;
 constexpr uint16_t Jump_Up_Drop_B_3                              = Stance::Jump_Up_Drop_B_2 + 1;
 constexpr uint16_t Jump_Up_Drop_B_4                              = Stance::Jump_Up_Drop_B_3 + 1;
@@ -1002,9 +1002,9 @@ constexpr uint16_t Jump_Up_Drop_B_5_End                          = Stance::Jump_
 
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /*                                                               01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
-#define JUMP_UP_DROP_C_SEQ                                       104,   105,   106,   107,   108,    
+#define JUMP_UP_DROP_C_SEQ                                       104,   105,   106,   107,   108,
 #define JUMP_UP_DROP_C_OFFSETS                                   0,6,   0,6,   0,6,   0,6,   0,7,
-constexpr uint16_t Jump_Up_Drop_C_1_Start                        = Stance::Jump_Up_Drop_B_5_End + 1;  
+constexpr uint16_t Jump_Up_Drop_C_1_Start                        = Stance::Jump_Up_Drop_B_5_End + 1;
 constexpr uint16_t Jump_Up_Drop_C_2                              = Stance::Jump_Up_Drop_C_1_Start + 1;
 constexpr uint16_t Jump_Up_Drop_C_3                              = Stance::Jump_Up_Drop_C_2 + 1;
 constexpr uint16_t Jump_Up_Drop_C_4                              = Stance::Jump_Up_Drop_C_3 + 1;
@@ -1013,10 +1013,10 @@ constexpr uint16_t Jump_Up_Drop_C_5_End                          = Stance::Jump_
 
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /*                                                               01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
-#define STEP_CLIMBING_SEQ                                        75,    76,    77,    78,    79,    80,    81,    82,    83,    84,    85,    86,    87,    88,    89,  
-//#define STEP_CLIMBING_OFFSETS                                  0,-4,  0,-4,  0,-2,  0,-3,  0,-3,  0,-3,  0,-4,  0,-4,  0,-1,  1,-1,  1,0,   0,-1,  1,-1,  1,0,   0,0,  
-#define STEP_CLIMBING_OFFSETS                                    0,-4,  0,-4,  0,-2,  0,-4,  0,-3,  0,-3,  0,-3,  0,-3,  0,-2,  1,-1,  1,0,   0,-1,  1,-1,  1,0,   0,0,  
-constexpr uint16_t Step_Climbing_1_Start                         = Stance::Jump_Up_Drop_C_5_End + 1; 
+#define STEP_CLIMBING_SEQ                                        75,    76,    77,    78,    79,    80,    81,    82,    83,    84,    85,    86,    87,    88,    89,
+//#define STEP_CLIMBING_OFFSETS                                  0,-4,  0,-4,  0,-2,  0,-3,  0,-3,  0,-3,  0,-4,  0,-4,  0,-1,  1,-1,  1,0,   0,-1,  1,-1,  1,0,   0,0,
+#define STEP_CLIMBING_OFFSETS                                    0,-4,  0,-4,  0,-2,  0,-4,  0,-3,  0,-3,  0,-3,  0,-3,  0,-2,  1,-1,  1,0,   0,-1,  1,-1,  1,0,   0,0,
+constexpr uint16_t Step_Climbing_1_Start                         = Stance::Jump_Up_Drop_C_5_End + 1;
 constexpr uint16_t Step_Climbing_2                               = Stance::Step_Climbing_1_Start + 1;
 constexpr uint16_t Step_Climbing_3                               = Stance::Step_Climbing_2 + 1;
 constexpr uint16_t Step_Climbing_4                               = Stance::Step_Climbing_3 + 1;
@@ -1053,7 +1053,7 @@ constexpr uint16_t Crouch_Stand_12_End                           = Stance::Crouc
 
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /*                                                               01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
-#define CROUCH_HOP_SEQ                                           110,   111,   112,   113,   112,   111,   110, 
+#define CROUCH_HOP_SEQ                                           110,   111,   112,   113,   112,   111,   110,
 #define CROUCH_HOP_OFFSETS                                       0,0,   1,0,   1,0,   1,0,   1,0,   0,0,   0,0,
 constexpr uint16_t Crouch_HOP_1_Start                            = Stance::Crouch_Stand_12_End + 1;
 constexpr uint16_t Crouch_HOP_2                                  = Stance::Crouch_HOP_1_Start + 1;
@@ -1067,7 +1067,7 @@ constexpr uint16_t Crouch_HOP_7_End                              = Stance::Crouc
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /* Used when climbing up from a hanging position on a ledge where the climb is blocked by a gate or other obstacle                                                                                       */
 /*                                                               01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
-#define STEP_CLIMBINB_BLOCK_SEQ                                  75,    76,    77,    78,    79,    78,    77,    76,    75, 
+#define STEP_CLIMBINB_BLOCK_SEQ                                  75,    76,    77,    78,    79,    78,    77,    76,    75,
 #define STEP_CLIMBINB_BLOCK_OFFSETS                              0,-4,  0,-4,  0,-2,  0,-3,  0,0,   0,3,   0,2,   0,4,   0,4,
 constexpr uint16_t Step_Climbing_Block_1_Start                   = Stance::Crouch_HOP_7_End + 1;
 constexpr uint16_t Step_Climbing_Block_2                         = Stance::Step_Climbing_Block_1_Start + 1;
@@ -1083,9 +1083,9 @@ constexpr uint16_t Step_Climbing_Block_9_End                     = Stance::Step_
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /* Drink the tonic!  Drink_Tonic_Small_14 triggers a health increase.                                                                                                                                          */
 /*                                                               01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
-#define DRINK_TONIC_SMALL_SEQ                                    127,   128,   129,   130,   131,   132,   133,   134,   135,   136,   137,   138,   139,   140,   141,  
+#define DRINK_TONIC_SMALL_SEQ                                    127,   128,   129,   130,   131,   132,   133,   134,   135,   136,   137,   138,   139,   140,   141,
 #define DRINK_TONIC_SMALL_OFFSETS                                0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,
-constexpr uint16_t Drink_Tonic_Small_1_Start                     = Stance::Step_Climbing_Block_9_End + 1; 
+constexpr uint16_t Drink_Tonic_Small_1_Start                     = Stance::Step_Climbing_Block_9_End + 1;
 constexpr uint16_t Drink_Tonic_Small_2                           = Stance::Drink_Tonic_Small_1_Start + 1;
 constexpr uint16_t Drink_Tonic_Small_3                           = Stance::Drink_Tonic_Small_2 + 1;
 constexpr uint16_t Drink_Tonic_Small_4                           = Stance::Drink_Tonic_Small_3 + 1;
@@ -1105,9 +1105,9 @@ constexpr uint16_t Drink_Tonic_Small_15_End                      = Stance::Drink
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /* Drink the tonic!  Drink_Tonic_Large_14 triggers a health and max health increase.                                                                                                                                          */
 /*                                                               01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
-#define DRINK_TONIC_LARGE_SEQ                                    127,   128,   129,   130,   131,   132,   133,   134,   135,   136,   137,   138,   139,   140,   141,  
+#define DRINK_TONIC_LARGE_SEQ                                    127,   128,   129,   130,   131,   132,   133,   134,   135,   136,   137,   138,   139,   140,   141,
 #define DRINK_TONIC_LARGE_OFFSETS                                0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,
-constexpr uint16_t Drink_Tonic_Large_1_Start                     = Stance::Drink_Tonic_Small_15_End + 1; 
+constexpr uint16_t Drink_Tonic_Large_1_Start                     = Stance::Drink_Tonic_Small_15_End + 1;
 constexpr uint16_t Drink_Tonic_Large_2                           = Stance::Drink_Tonic_Large_1_Start + 1;
 constexpr uint16_t Drink_Tonic_Large_3                           = Stance::Drink_Tonic_Large_2 + 1;
 constexpr uint16_t Drink_Tonic_Large_4                           = Stance::Drink_Tonic_Large_3 + 1;
@@ -1127,9 +1127,9 @@ constexpr uint16_t Drink_Tonic_Large_15_End                      = Stance::Drink
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /* Drink the tonic!  Drink_Tonic_Large_14 triggers a health and max health increase.                                                                                                                                          */
 /*                                                               01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
-#define DRINK_TONIC_POISON_SEQ                                   127,   128,   129,   130,   131,   132,   133,   134,   135,   136,   137,   138,   139,   140,   141,  
+#define DRINK_TONIC_POISON_SEQ                                   127,   128,   129,   130,   131,   132,   133,   134,   135,   136,   137,   138,   139,   140,   141,
 #define DRINK_TONIC_POISON_OFFSETS                               0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,
-constexpr uint16_t Drink_Tonic_Poison_1_Start                    = Stance::Drink_Tonic_Large_15_End + 1; 
+constexpr uint16_t Drink_Tonic_Poison_1_Start                    = Stance::Drink_Tonic_Large_15_End + 1;
 constexpr uint16_t Drink_Tonic_Poison_2                          = Stance::Drink_Tonic_Poison_1_Start + 1;
 constexpr uint16_t Drink_Tonic_Poison_3                          = Stance::Drink_Tonic_Poison_2 + 1;
 constexpr uint16_t Drink_Tonic_Poison_4                          = Stance::Drink_Tonic_Poison_3 + 1;
@@ -1149,9 +1149,9 @@ constexpr uint16_t Drink_Tonic_Poison_15_End                     = Stance::Drink
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /* Drink the tonic!  Drink_Tonic_Small_14 triggers a health increase.                                                                                                                                          */
 /*                                                               01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
-#define DRINK_TONIC_FLOAT_SEQ                                    127,   128,   129,   130,   131,   132,   133,   134,   135,   136,   137,   138,   139,   140,   141,  
+#define DRINK_TONIC_FLOAT_SEQ                                    127,   128,   129,   130,   131,   132,   133,   134,   135,   136,   137,   138,   139,   140,   141,
 #define DRINK_TONIC_FLOAT_OFFSETS                                0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,
-constexpr uint16_t Drink_Tonic_Float_1_Start                     = Stance::Drink_Tonic_Poison_15_End + 1; 
+constexpr uint16_t Drink_Tonic_Float_1_Start                     = Stance::Drink_Tonic_Poison_15_End + 1;
 constexpr uint16_t Drink_Tonic_Float_2                           = Stance::Drink_Tonic_Float_1_Start + 1;
 constexpr uint16_t Drink_Tonic_Float_3                           = Stance::Drink_Tonic_Float_2 + 1;
 constexpr uint16_t Drink_Tonic_Float_4                           = Stance::Drink_Tonic_Float_3 + 1;
@@ -1170,9 +1170,9 @@ constexpr uint16_t Drink_Tonic_Float_15_End                      = Stance::Drink
 
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /*                                                               01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
-#define FALLING_INJURED_SEQ                                      125,   126, 
+#define FALLING_INJURED_SEQ                                      125,   126,
 #define FALLING_INJURED_OFFSETS                                  0,0,   0,0,
-constexpr uint16_t Falling_Injured_1_Start                       = Stance::Drink_Tonic_Float_15_End + 1;  
+constexpr uint16_t Falling_Injured_1_Start                       = Stance::Drink_Tonic_Float_15_End + 1;
 constexpr uint16_t Falling_Injured_2_End                         = Stance::Falling_Injured_1_Start + 1;
 
 
@@ -1180,14 +1180,14 @@ constexpr uint16_t Falling_Injured_2_End                         = Stance::Falli
 /*                                                               01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
 #define FALLING_DEAD_SEQ                                         125,   126,   142,
 #define FALLING_DEAD_OFFSETS                                     0,0,   0,0,   0,0,
-constexpr uint16_t Falling_Dead_1_Start                         = Stance::Falling_Injured_2_End + 1;  
+constexpr uint16_t Falling_Dead_1_Start                         = Stance::Falling_Injured_2_End + 1;
 constexpr uint16_t Falling_Dead_2                               = Stance::Falling_Dead_1_Start + 1;
 constexpr uint16_t Falling_Dead_3_End                           = Stance::Falling_Dead_2 + 1;
 
 
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /*                                                               01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
-#define RUN_REPEAT_8_END_SEQ                                     14, 
+#define RUN_REPEAT_8_END_SEQ                                     14,
 #define RUN_REPEAT_8_END_OFFSETS                                 4,0,
 constexpr uint16_t Run_Repeat_8_End_Turn                         = Stance::Falling_Dead_3_End + 1;  // Single entry to allow x correction
 
@@ -1217,7 +1217,7 @@ constexpr uint16_t Pickup_Sword_16_End                           = Stance::Picku
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /*  Dist: 6,31                                                   01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
 #define FALLING_STEPWALKRUN_P0_4_8_SEQ                           121,   122,   123,   124,   125,   126,
-#define FALLING_STEPWALKRUN_P0_4_8_OFFSETS                       2,6,   2,5,   1,5,   1,5,   0,5,   0,5,  
+#define FALLING_STEPWALKRUN_P0_4_8_OFFSETS                       2,6,   2,5,   1,5,   1,5,   0,5,   0,5,
 constexpr uint16_t Falling_StepWalkRun_P0_4_8_1_Start            = Stance::Pickup_Sword_16_End + 1;
 constexpr uint16_t Falling_StepWalkRun_P0_4_8_2                  = Stance::Falling_StepWalkRun_P0_4_8_1_Start + 1;
 constexpr uint16_t Falling_StepWalkRun_P0_4_8_3                  = Stance::Falling_StepWalkRun_P0_4_8_2 + 1;
@@ -1241,7 +1241,7 @@ constexpr uint16_t Falling_StepWalkRun_P1_5_9_6_End              = Stance::Falli
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /*  Dist: 8,31                                                   01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
 #define FALLING_STEPWALKRUN_P2_10_SEQ                            121,   122,   123,   124,   125,   126,
-#define FALLING_STEPWALKRUN_P2_10_OFFSETS                        2,6,   2,5,   2,5,   1,5,   1,5,   0,5, 
+#define FALLING_STEPWALKRUN_P2_10_OFFSETS                        2,6,   2,5,   2,5,   1,5,   1,5,   0,5,
 constexpr uint16_t Falling_StepWalkRun_P2_10_1_Start             = Stance::Falling_StepWalkRun_P1_5_9_6_End + 1;
 constexpr uint16_t Falling_StepWalkRun_P2_10_2                   = Stance::Falling_StepWalkRun_P2_10_1_Start + 1;
 constexpr uint16_t Falling_StepWalkRun_P2_10_3                   = Stance::Falling_StepWalkRun_P2_10_2 + 1;
@@ -1253,7 +1253,7 @@ constexpr uint16_t Falling_StepWalkRun_P2_10_6_End               = Stance::Falli
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /*  Dist: 9,31                                                   01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
 #define FALLING_STEPWALKRUN_P3_7_11_SEQ                          121,   122,   123,   124,   125,   126,
-#define FALLING_STEPWALKRUN_P3_7_11_OFFSETS                      2,6,   2,5,   2,5,   2,5,   1,5,   0,5, 
+#define FALLING_STEPWALKRUN_P3_7_11_OFFSETS                      2,6,   2,5,   2,5,   2,5,   1,5,   0,5,
 constexpr uint16_t Falling_StepWalkRun_P3_7_11_1_Start           = Stance::Falling_StepWalkRun_P2_10_6_End + 1;
 constexpr uint16_t Falling_StepWalkRun_P3_7_11_2                 = Stance::Falling_StepWalkRun_P3_7_11_1_Start + 1;
 constexpr uint16_t Falling_StepWalkRun_P3_7_11_3                 = Stance::Falling_StepWalkRun_P3_7_11_2 + 1;
@@ -1265,7 +1265,7 @@ constexpr uint16_t Falling_StepWalkRun_P3_7_11_6_End             = Stance::Falli
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /*  Dist: 4,31                                                   01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
 #define FALLING_STEPWALKRUN_P6_SEQ                               121,   122,   123,   124,   125,   126,
-#define FALLING_STEPWALKRUN_P6_OFFSETS                           2,6,   1,5,   1,5,   0,5,   0,5,   0,5, 
+#define FALLING_STEPWALKRUN_P6_OFFSETS                           2,6,   1,5,   1,5,   0,5,   0,5,   0,5,
 constexpr uint16_t Falling_StepWalkRun_P6_1_Start                = Stance::Falling_StepWalkRun_P3_7_11_6_End + 1;
 constexpr uint16_t Falling_StepWalkRun_P6_2                      = Stance::Falling_StepWalkRun_P6_1_Start + 1;
 constexpr uint16_t Falling_StepWalkRun_P6_3                      = Stance::Falling_StepWalkRun_P6_2 + 1;
@@ -1356,7 +1356,7 @@ constexpr uint16_t Leave_Gate_14_End                             = Stance::Leave
 
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /*                                                               01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
-#define COLLIDE_WALL_SEQ                                         126,   126,   126,   126,   126, 
+#define COLLIDE_WALL_SEQ                                         126,   126,   126,   126,   126,
 #define COLLIDE_WALL_OFFSETS                                     2,0,   1,0,   0,0,   -1,0,  -2,0,
 constexpr uint16_t Collide_Wall_P2_Start_End                     = Stance::Leave_Gate_14_End + 1;
 constexpr uint16_t Collide_Wall_P1_Start_End                     = Stance::Collide_Wall_P2_Start_End + 1;
@@ -1367,7 +1367,7 @@ constexpr uint16_t Collide_Wall_M2_Start_End                     = Stance::Colli
 
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /*                                                               01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
-#define VER_ADJUSTMENTS_SEQ                                      125,   125,   125,   125,   125,   125, 
+#define VER_ADJUSTMENTS_SEQ                                      125,   125,   125,   125,   125,   125,
 #define VER_ADJUSTMENTS_OFFSETS                                  0,1,   0,2,   0,3,   0,4,   0,5,   0,6,
 constexpr uint16_t Vert_Adjustment_1_Start_End                   = Stance::Collide_Wall_M2_Start_End + 1;
 constexpr uint16_t Vert_Adjustment_2_Start_End                   = Stance::Vert_Adjustment_1_Start_End + 1;
@@ -1380,8 +1380,8 @@ constexpr uint16_t Vert_Adjustment_6_Start_End                   = Stance::Vert_
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /*                                                               01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
 #define JUMP_UP_DROP_HIDEHANDS_SEQ                               90,    91,    92,    93,    94,    95,    96,    97,    98,    99,    100,   101,   196,   197,   198,   199,   106,   107,   108,
-#define JUMP_UP_DROP_HIDEHANDS_OFFSETS                           0,0,   0,0,   0,0,   -1,0,  -1,0,  0,0,   0,0,   0,0,   0,0,   1,0,   1,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,                                          
-constexpr uint16_t Jump_Up_Drop_HideHands_1_Start                = Stance::Vert_Adjustment_6_Start_End + 1; 
+#define JUMP_UP_DROP_HIDEHANDS_OFFSETS                           0,0,   0,0,   0,0,   -1,0,  -1,0,  0,0,   0,0,   0,0,   0,0,   1,0,   1,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,
+constexpr uint16_t Jump_Up_Drop_HideHands_1_Start                = Stance::Vert_Adjustment_6_Start_End + 1;
 constexpr uint16_t Jump_Up_Drop_HideHands_2                      = Stance::Jump_Up_Drop_HideHands_1_Start + 1;
 constexpr uint16_t Jump_Up_Drop_HideHands_3                      = Stance::Jump_Up_Drop_HideHands_2 + 1;
 constexpr uint16_t Jump_Up_Drop_HideHands_4                      = Stance::Jump_Up_Drop_HideHands_3 + 1;
@@ -1423,8 +1423,8 @@ constexpr uint16_t Draw_Sword_6_End                              = Stance::Draw_
 
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /*                                                               01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
-#define SWORD_STEP_SEQ                                           181,   182,   183,   
-#define SWORD_STEP_OFFSETS                                       3,0,   1,0,   0,0,  
+#define SWORD_STEP_SEQ                                           181,   182,   183,
+#define SWORD_STEP_OFFSETS                                       3,0,   1,0,   0,0,
 constexpr uint16_t Sword_Step_1_Start                            = Stance::Draw_Sword_6_End + 1;
 constexpr uint16_t Sword_Step_2                                  = Stance::Sword_Step_1_Start + 1;
 constexpr uint16_t Sword_Step_3_End                              = Stance::Sword_Step_2 + 1;
@@ -1432,8 +1432,8 @@ constexpr uint16_t Sword_Step_3_End                              = Stance::Sword
 
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /*                                                               01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
-#define SWORD_STEP_SEQ                                           183,   182,   181,   
-#define SWORD_STEP_OFFSETS                                       0,0,   -1,0,  -3,0,  
+#define SWORD_STEP_SEQ                                           183,   182,   181,
+#define SWORD_STEP_OFFSETS                                       0,0,   -1,0,  -3,0,
 constexpr uint16_t Sword_Step_Back_1_Start                       = Stance::Sword_Step_3_End + 1;
 constexpr uint16_t Sword_Step_Back_2                             = Stance::Sword_Step_Back_1_Start + 1;
 constexpr uint16_t Sword_Step_Back_3_End                         = Stance::Sword_Step_Back_2 + 1;
@@ -1441,7 +1441,7 @@ constexpr uint16_t Sword_Step_Back_3_End                         = Stance::Sword
 
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /*                                                               01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
-#define SWORD_ATTACK_SEQ                                         186,   187,   188,   189,   190,   191,   192,   193,   
+#define SWORD_ATTACK_SEQ                                         186,   187,   188,   189,   190,   191,   192,   193,
 #define SWORD_ATTACK_OFFSETS                                     2,0,   1,0,   2,0,   2,0,   -3,0,  -3,0,  -1,0,  0,0,
 constexpr uint16_t Sword_Attack_1_Start                          = Stance::Sword_Step_Back_3_End + 1;
 constexpr uint16_t Sword_Attack_2                                = Stance::Sword_Attack_1_Start + 1;
@@ -1455,7 +1455,7 @@ constexpr uint16_t Sword_Attack_8_End                            = Stance::Sword
 
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /*                                                               01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
-#define ATTACK_BLOCK_SEQ                                         194,   195,   194,   
+#define ATTACK_BLOCK_SEQ                                         194,   195,   194,
 #define ATTACK_BLOCK_OFFSETS                                     0,0,   1,0,   -1,0,
 constexpr uint16_t Attack_Block_1_Start                          = Stance::Sword_Attack_8_End + 1;
 constexpr uint16_t Attack_Block_2                                = Stance::Attack_Block_1_Start + 1;
@@ -1465,17 +1465,17 @@ constexpr uint16_t Attack_Block_3_End                            = Stance::Attac
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /*                                                               01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
 #define FALLING_DEAD_BLADE_SEQ                                   126,   142,
-#define FALLING_DEAD_BLADE_OFFSETS                               0,0,   0,0,  
-constexpr uint16_t Falling_Dead_Blade_1_Start                    = Stance::Attack_Block_3_End + 1;  
+#define FALLING_DEAD_BLADE_OFFSETS                               0,0,   0,0,
+constexpr uint16_t Falling_Dead_Blade_1_Start                    = Stance::Attack_Block_3_End + 1;
 constexpr uint16_t Falling_Dead_Blade_2_End                      = Stance::Falling_Dead_Blade_1_Start + 1;
 
 
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 /* Used when mirror is closing button                                                                                                                                                                    */
 /*                                                               01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
-#define DELAY_SEQ                                                15,    15,    15,    15,    15,    15,    15,    15,    
-#define DELAY_OFFSETS                                            0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   
-constexpr uint16_t Delay_1_Start                                 = Stance::Falling_Dead_Blade_2_End + 1;  
+#define DELAY_SEQ                                                15,    15,    15,    15,    15,    15,    15,    15,
+#define DELAY_OFFSETS                                            0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,   0,0,
+constexpr uint16_t Delay_1_Start                                 = Stance::Falling_Dead_Blade_2_End + 1;
 constexpr uint16_t Delay_2                                       = Stance::Delay_1_Start + 1;
 constexpr uint16_t Delay_3                                       = Stance::Delay_2 + 1;
 constexpr uint16_t Delay_4                                       = Stance::Delay_3 + 1;
@@ -1489,7 +1489,7 @@ constexpr uint16_t Delay_8_End                                   = Stance::Delay
 /*                                                               01     02     03     04     05     06     07     08     09     10     11     12     13     14     15     16     17     18     19     20 */
 #define STRAIGHT_DROP_HANGON_SEQ                                 125,   125,   125,   125,   125,   103,
 #define STRAIGHT_DROP_HANGON_OFFSETS                             0,6,   0,5,   0,5,   0,5,   0,5,   0,5,
-constexpr uint16_t Straight_Drop_HangOn_1_Start                  = Stance::Delay_8_End + 1;  
+constexpr uint16_t Straight_Drop_HangOn_1_Start                  = Stance::Delay_8_End + 1;
 constexpr uint16_t Straight_Drop_HangOn_2                        = Stance::Straight_Drop_HangOn_1_Start + 1;
 constexpr uint16_t Straight_Drop_HangOn_3                        = Stance::Straight_Drop_HangOn_2 + 1;
 constexpr uint16_t Straight_Drop_HangOn_4                        = Stance::Straight_Drop_HangOn_3 + 1;
@@ -1530,11 +1530,11 @@ namespace Constants {
     constexpr uint8_t EnemyCount = 5;
     constexpr uint8_t StackSize = 30;
     constexpr uint8_t StrikeDistance = 20;
-    
+
     constexpr uint8_t Item_ExitDoor = 0;
     constexpr uint8_t Item_LoveHeart = 1;           // Inside dynamic range as only used in cut scenes..
     constexpr uint8_t Items_Count = 49;
-   
+
     constexpr uint8_t FrameRate = 45;
     constexpr uint8_t Animation_NumberOfFrames = 2;
     constexpr uint8_t NoItemFound = 255;
@@ -1544,7 +1544,7 @@ namespace Constants {
     constexpr uint8_t ScreenTopOffset = 1;
     constexpr uint8_t ScreenWidthInTiles = 10;
     constexpr uint8_t ScreenHeightInTiles = 3;
-   
+
     constexpr int8_t CoordNone = 127;
     constexpr uint8_t TitleScreenScroll_Max = 87;
 
