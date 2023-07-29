@@ -1193,15 +1193,41 @@ void game() {
             case GameState::Game:
 
                 #ifndef ALT_B_BUTTON
-                    #ifndef SAVE_MEMORY_ENEMY
-                    if ((pressed & B_BUTTON) && (pressed & A_BUTTON) && prince.isEmpty() && (!sameLevelAsPrince || enemy.getHealth() == 0 || prince.getHealth() == 0)) {
+
+                    #ifdef USE_CLASSIC_CONTROLS
+                        if ((pressed & B_BUTTON) && (pressed & A_BUTTON) && prince.isEmpty()) {
                     #else
-                    if ((pressed & B_BUTTON) && (pressed & A_BUTTON) && prince.isEmpty() && (!sameLevelAsPrince || prince.getHealth() == 0)) {
+                        #ifndef SAVE_MEMORY_ENEMY
+                        if ((pressed & B_BUTTON) && prince.isEmpty() && (!sameLevelAsPrince || enemy.getHealth() == 0 || prince.getHealth() == 0)) {
+                        #else
+                        if ((pressed & B_BUTTON) && prince.isEmpty() && (!sameLevelAsPrince || prince.getHealth() == 0)) {
+                        #endif
                     #endif
 
-                        gamePlay.gameState = GameState::Menu;
-                        menu.direction = Direction::Left;
-                        menu.cursor = static_cast<uint8_t>(MenuOption::Resume);
+
+                        #ifndef USE_CLASSIC_CONTROLS
+                        if (bCounter > 4) {
+                        #endif
+
+                            gamePlay.gameState = GameState::Menu;
+                            menu.direction = Direction::Left;
+                            menu.cursor = static_cast<uint8_t>(MenuOption::Resume);
+                            bCounter = 0;
+
+                        #ifndef USE_CLASSIC_CONTROLS
+                        }
+                        else {
+                            bCounter++;
+                        }
+                        #endif
+
+
+                    }
+                    else {
+
+                        #ifndef USE_CLASSIC_CONTROLS
+                        bCounter = 0;
+                        #endif
 
                     }
 

@@ -25,6 +25,7 @@
     #define POP_ONLY
     #define _POA_ONLY
     #define USE_LED
+    #define USE_CLASSIC_CONTROLS
 
     #define _DEBUG
 
@@ -50,6 +51,7 @@
     #define _POP_ONLY
     #define _POA_ONLY
     #define _USE_LED
+    #define USE_CLASSIC_CONTROLS
 
     #define _DEBUG
 
