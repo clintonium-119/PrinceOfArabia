@@ -79,7 +79,7 @@ Legend tells, that these forbidden corridors will reveal our darkest side.
   - ~~If a game was saved with sword available, this was carrying forward on new games~~
 
 
-### USE_CLASSIC_CONTROLS flag
+### `USE_CLASSIC_CONTROLS` flag
 - ~~A + B to open menu~~
   - Currently does standing jump if room for it - need to disable jump if B is also pressed
 - ~~Automatically draw sword if encountering enemy~~
