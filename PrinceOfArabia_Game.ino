@@ -1007,7 +1007,12 @@ void game() {
                             }
 
                         }
+                        #ifdef USE_CLASSIC_CONTROLS
                         else if (pressed & B_BUTTON) {
+                        #else
+                        else if (pressed & A_BUTTON) {
+                        #endif
+
 
                             uint8_t itemIdx = level.canReachItem(prince, ItemType::Potion_Small, ItemType::Potion_Float);
 
