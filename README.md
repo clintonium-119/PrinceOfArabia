@@ -81,11 +81,10 @@ Legend tells, that these forbidden corridors will reveal our darkest side.
 
 ### `USE_CLASSIC_CONTROLS` flag
 - ~~A + B to open menu~~
-  - Currently does standing jump if room for it - need to disable jump if B is also pressed
+  - ~~Currently does standing jump if room for it - need to disable jump if B is also pressed~~
 - ~~Down to sheathe sword~~
-  - TBD: if sheathed, should not draw again automatically for a second or so to allow movement before automatically drawing again.
 - ~~A or UP to block~~
-- B to pick up items
+- ~~B to pick up items~~
 - Require B to grab ledges while jumping, and only hang when dropping levels if B is held as well
 
 ### Movement Tweaks
@@ -104,9 +103,10 @@ Legend tells, that these forbidden corridors will reveal our darkest side.
 - Investigate blocking -- seems hard to tell if it's successful, and harder to pull off than in original
   - Should add unique blocking sound
 
-### Visual Tweaks (if memory allows)
+### Misc Tweaks (if memory allows)
 - Add a 'fat' enemy - he's kind of a classic staple, with a unique fighting style
 - Add Jaffar as final fighter (haven't checked if this is implemented or not)
+- Spikes should trigger (without harm) when jumping over them
 
 ---
 

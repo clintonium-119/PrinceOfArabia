@@ -623,7 +623,7 @@ void game() {
                         break;
 
                     }
-                    else if (pressed & A_BUTTON) {
+                    else if (pressed & A_BUTTON && !(pressed & B_BUTTON)) {
 
                         processStandingJump(prince, level);
                         break;
@@ -1007,7 +1007,7 @@ void game() {
                             }
 
                         }
-                        else if (pressed & A_BUTTON) {
+                        else if (pressed & B_BUTTON) {
 
                             uint8_t itemIdx = level.canReachItem(prince, ItemType::Potion_Small, ItemType::Potion_Float);
 
