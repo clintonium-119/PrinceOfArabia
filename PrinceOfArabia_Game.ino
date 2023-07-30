@@ -652,11 +652,11 @@ void game() {
 
                             switch (canClimbDownResult) {
 
-                                case CanClimbDownResult::TurnThenClimbDown:
+                                case CanClimbDownResult::TurnThenClimbDown: // TODO: Determine if this is a classic control feature?
                                     prince.pushSequence(Stance::Standing_Turn_1_Start, Stance::Standing_Turn_5_End, Stance::Upright_Turn);
                                     break;
 
-                                case CanClimbDownResult::StepThenTurnThenClimbDown:
+                                case CanClimbDownResult::StepThenTurnThenClimbDown: // TODO: Determine if this is a classic control feature?
                                     prince.pushSequence(Stance::Standing_Turn_1_Start, Stance::Standing_Turn_5_End, Stance::Upright_Turn);
                                     prince.pushSequence(Stance::Small_Step_1_Start, Stance::Small_Step_6_End, Stance::Upright);
                                     break;
@@ -668,7 +668,14 @@ void game() {
                                 default: break;
                             }
 
+                            #ifdef USE_CLASSIC_CONTROLS
+                            // Require holding button to hang (must be pressed before hanging)
+                            if (pressed & B_BUTTON) {
+                            #endif
                             prince.setHangingCounter(150);
+                            #ifdef USE_CLASSIC_CONTROLS
+                            }
+                            #endif
 
                         }
 
@@ -770,6 +777,15 @@ void game() {
                 case Stance::Jump_Up_A_14_End:     // Hanging on ledge  (dist 2)..
                 case Stance::Jump_Up_B_14_End:
                 case Stance::Straight_Drop_HangOn_6_End:
+
+                    #ifdef USE_CLASSIC_CONTROLS
+                    // Require holding button to hang
+                    if (pressed & B_BUTTON && prince.getHangingCounter() == 0) {
+                    #endif
+                    prince.setHangingCounter(90);
+                    #ifdef USE_CLASSIC_CONTROLS
+                    }
+                    #endif
 
                     if (pressed & DOWN_BUTTON) {
 
@@ -1524,9 +1540,18 @@ void game() {
 
                             case CanFallResult::CanFallToHangingPosition:
 
+                                #ifdef USE_CLASSIC_CONTROLS
+                                // Require holding button to hang on falling
+                                if (pressed & B_BUTTON) {
+                                #endif
                                 prince.pushSequence(Stance::Straight_Drop_HangOn_1_Start, Stance::Straight_Drop_HangOn_6_End);
                                 prince.setHangingCounter(90);
+                                #ifdef USE_CLASSIC_CONTROLS
+                                }
+                                #endif
+
                                 break;
+
 
 
                         }
@@ -1923,6 +1948,10 @@ void game() {
             prince.incX(offset.x * (newStance < 0 ? -1 : 1));
             prince.incY(offset.y * (newStance < 0 ? -1 : 1));
 
+            if (prince.inAir() && prince.getFalling() == 0) {
+                // Trigger spikes when jumping over them
+                activateSpikes(prince, level);
+            }
 
             // Has the player stepped on anything ?
 

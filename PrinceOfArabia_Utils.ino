@@ -1,5 +1,5 @@
-#include "src/utils/Arduboy2Ext.h"  
-#include <ArduboyFX.h>  
+#include "src/utils/Arduboy2Ext.h"
+#include <ArduboyFX.h>
 
 #include "src/utils/Constants.h"
 #include "src/utils/Stack.h"
@@ -96,12 +96,12 @@ bool testScroll(GamePlay &gamePlay, Prince &prince, Level &level) {
             mouse.exits++;
 
             if (mouse.exits > 2) {
-                    
+
                 Item gate = level.getItemByIndex(ItemType::Gate, ItemType::Gate_StayOpen, 6);
 
-                if (gate.data.gate.position == 0) { 
+                if (gate.data.gate.position == 0) {
 
-                    mouse.counter = arduboy.randomLFSR(170, 240);     
+                    mouse.counter = arduboy.randomLFSR(170, 240);
 
                 }
 
@@ -150,11 +150,21 @@ void processJump(uint24_t pos) {
         prince.setIgnoreWallCollisions(true);
     }
 
+    #ifdef USE_CLASSIC_CONTROLS
+    uint8_t pressed = arduboy.pressedButtons();
+
+    // Require holding button to hang on jumping short
+    if (pressed & B_BUTTON) {
+    #endif
     uint16_t counter = FX::readPendingLastUInt16();
 
     if (counter > 0) {
         prince.setHangingCounter(static_cast<uint8_t>(counter));
     }
+    #ifdef USE_CLASSIC_CONTROLS
+    }
+    #endif
+
 
 }
 
@@ -200,7 +210,7 @@ void processRunJump(Prince &prince, Level &level, bool testEnemy) {
     }
 
     if (jumpResult != RunningJumpResult::KeepRunning) {
-        
+
         uint24_t pos = RunningJumpStances + static_cast<uint24_t>(static_cast<uint16_t>(jumpResult) * 16);
         processJump(pos);
 
@@ -227,7 +237,7 @@ void initFlash(Prince &prince, Level &level, FlashType flashType) {
     flash.frame = 7;
     flash.type = flashType;
     flash.x = level.coordToTileIndexX(prince.getX()) + level.getXLocation();
-    flash.y = level.coordToTileIndexY(prince.getY()) + level.getYLocation(); 
+    flash.y = level.coordToTileIndexY(prince.getY()) + level.getYLocation();
 
 }
 
@@ -238,7 +248,7 @@ void initFlash(Enemy &enemy, Level &level, FlashType flashType) {
     flash.frame = 5;
     flash.type = flashType;
     flash.x = level.coordToTileIndexX(enemy.getX());
-    flash.y = level.coordToTileIndexY(enemy.getY()); 
+    flash.y = level.coordToTileIndexY(enemy.getY());
 
 }
 
@@ -278,7 +288,7 @@ uint8_t activateSpikes(Prince &prince, Level &level) {
     }
 
     return itemIdx;
-    
+
 }
 
 
@@ -321,7 +331,7 @@ bool leaveLevel(Prince &prince, Level &level) {
             case Direction::Right:
 
                 prince.pushSequence(Stance::Leave_Gate_01_Start, Stance::Leave_Gate_14_End);
-                    
+
                 switch (level.distToEdgeOfTile(prince.getDirection(), (level.getXLocation() * Constants::TileWidth) + prince.getX())) {
 
                     case 2:
@@ -357,7 +367,7 @@ bool leaveLevel(Prince &prince, Level &level) {
         switch (prince.getDirection()) {
 
             case Direction::Left:
-                    
+
                 switch (level.distToEdgeOfTile(prince.getDirection(), (level.getXLocation() * Constants::TileWidth) + prince.getX())) {
 
                     case 6:
@@ -377,7 +387,7 @@ bool leaveLevel(Prince &prince, Level &level) {
             case Direction::Right:
 
                 prince.pushSequence(Stance::Leave_Gate_01_Start, Stance::Leave_Gate_14_End);
-                    
+
                 switch (level.distToEdgeOfTile(prince.getDirection(), (level.getXLocation() * Constants::TileWidth) + prince.getX())) {
 
                     case 2:
@@ -395,7 +405,7 @@ bool leaveLevel(Prince &prince, Level &level) {
                 break;
 
             default: break;
-            
+
         }
 
         return true;
@@ -424,7 +434,7 @@ void pushDead(Prince &entity, Level &level, GamePlay &gamePlay, bool clear, Deat
         default: // case DeathType::Blade, Spikes, SwordFight
             entity.pushSequence(Stance::Falling_Dead_Blade_1_Start, Stance::Falling_Dead_Blade_2_End);
             break;
-            
+
     }
 
     entity.setHealth(0);
@@ -485,7 +495,7 @@ void playGrab() {
     #ifndef SAVE_MEMORY_SOUND
     setSound(static_cast<SoundIndex>(gamePlay.getGrab() + 1));
     #endif
-    
+
 }
 
 #ifndef SAVE_MEMORY_ENEMY
@@ -513,7 +523,7 @@ void playGrab() {
                     int8_t princeTileYIdx = level.coordToTileIndexY(prince.getPosition().y);
 
                     if (princeTileYIdx == tileYIdx) {
-                        
+
                         onSameLevelAsPrince = true;
 
                     }
@@ -529,12 +539,12 @@ void playGrab() {
             }
 
             if (enemyIsVisible) break;
-            
+
         }
 
 
         if (!enemyIsVisible || !swapEnemies) {
-            
+
             if (justEnteredRoom) {
                 enemy.clear();
             }
@@ -548,7 +558,7 @@ void playGrab() {
 
             BaseEntity &base = enemy.getActiveBase();
             int16_t xDelta = prince.getPosition().x - base.getPosition().x;
-            
+
             if (base.getHealth() > 0) {
 
                 enemy.getPosition().x = enemy.getX();
@@ -623,7 +633,7 @@ uint8_t getImageIndexFromStance(uint16_t stance) {
     uint8_t image = FX::readEnd();
 
     return image;
-    
+
 }
 
 
@@ -632,7 +642,7 @@ void getStance_Offsets(Direction direction, Point &offset, int16_t stance) {
     FX::seekData(Constants::Stance_XYOffsetsFX + ((stance - 1) * 2));
     offset.x = static_cast<int8_t>(FX::readPendingUInt8()) * (direction == Direction::Left ? -1 : 1) * (stance < 0 ? -1 : 1);;
     offset.y = static_cast<int8_t>(FX::readEnd()) * (stance < 0 ? -1 : 1);
-        
+
 }
 
 void processRunningTurn() {
@@ -689,7 +699,7 @@ void saveCookie(bool enableLEDs) {
 
 
 #ifndef SAVE_MEMORY_SOUND
-    
+
     void setSound(SoundIndex index) {
 
         bool playSound = true;
@@ -733,9 +743,9 @@ void saveCookie(bool enableLEDs) {
         if (playSound) {
             sound.tonesFromFX(FX::readIndexedUInt24(Sounds::Table, (uint8_t)index));
         }
-        
+
     }
-    
+
 #endif
 
 
@@ -753,7 +763,7 @@ void handleBlades() {
 
     ImageDetails imageDetails;
     prince.getImageDetails(imageDetails);
-    
+
     princeLX = prince.getX() + imageDetails.reach;
     princeRX = prince.getX() + imageDetails.heel;
 
@@ -785,7 +795,7 @@ void handleBlade_Single(int8_t tileXIdx, int8_t tileYIdx, uint8_t princeLX, uint
             #if defined(DEBUG) && defined(DEBUG_PUSH_DEAD)
             DEBUG_PRINTLN(F("pushDead 15"));
             #endif
-            
+
             pushDead(prince, level, gamePlay, true, DeathType::Blade);
 
         }

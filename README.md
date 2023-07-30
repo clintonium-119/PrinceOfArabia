@@ -84,10 +84,10 @@ Legend tells, that these forbidden corridors will reveal our darkest side.
 - ~~Down to sheathe sword~~
 - ~~A or UP to block~~
 - ~~B to pick up items~~
-- Require B to grab ledges while jumping, and only hang when dropping levels if B is held as well
+- ~~Require B to grab ledges while jumping, and only hang when dropping levels if B is held as well~~
 
 ### Movement Tweaks
-- No longer automatically grabbing ledges while jumping - need B button pressed
+- ~~No longer automatically grabbing ledges while jumping - need B button pressed~~
 - Can always grab and hang on a 3 tile standing jump
   - This works when there's a wall, but not if there's a safe landing, such as the first 3-tile jump opportunity in level 2
 - Can trigger tile by hanging
@@ -105,9 +105,10 @@ Legend tells, that these forbidden corridors will reveal our darkest side.
 ### Misc Tweaks (if memory allows)
 - Add a 'fat' enemy - he's kind of a classic staple, with a unique fighting style
 - Add Jaffar as final fighter (haven't checked if this is implemented or not)
-- Spikes should trigger (without harm) when jumping over them
+- ~~Spikes should trigger (without harm) when jumping over them~~
 - Require pushing up to exit level
 - Reduce time for tiles falling when hitting from below
+- Ensure 1 minute time penalty is in play for dying and restarting level
 
 ---
 
