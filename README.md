@@ -86,13 +86,14 @@ Legend tells, that these forbidden corridors will reveal our darkest side.
 - ~~B to pick up items~~
 - ~~Require B to grab ledges while jumping, and only hang when dropping levels if B is held as well~~
   - TBD: Done, though the kid still grabs on for a frame before dropping.
+  - Other issue: the counter before the kid drops never reaches zero, so he can currently hang forever if the button is held
   - This is because, at the start of the jump, the distance determines whether to use a `GrabLedge` jump sequence.
   - To disable, I imagine I'd need to pull the hang frame from the jump sequence if the button is not pressed by the time the frame arrives
 ### Movement Tweaks
 - ~~No longer automatically grabbing ledges while jumping - need B button pressed~~
 - Can always grab and hang on a 3 tile standing jump
   - This works when there's a wall, but not if there's a safe landing, such as the first 3-tile jump opportunity in level 2
-- Can trigger tile by hanging
+- ~~Can trigger tile by hanging~~
 - Doors close slowly rather than abruptly, if possible, allowing to crouch hop through if there's still space
 - Careful steps will not walk off the edge the first time an edge is reached
   - Also, if possible, when close to edge, but not quite there, last careful step will only take kid to edge
