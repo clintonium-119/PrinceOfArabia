@@ -85,7 +85,9 @@ Legend tells, that these forbidden corridors will reveal our darkest side.
 - ~~A or UP to block~~
 - ~~B to pick up items~~
 - ~~Require B to grab ledges while jumping, and only hang when dropping levels if B is held as well~~
-
+  - TBD: Done, though the kid still grabs on for a frame before dropping.
+  - This is because, at the start of the jump, the distance determines whether to use a `GrabLedge` jump sequence.
+  - To disable, I imagine I'd need to pull the hang frame from the jump sequence if the button is not pressed by the time the frame arrives
 ### Movement Tweaks
 - ~~No longer automatically grabbing ledges while jumping - need B button pressed~~
 - Can always grab and hang on a 3 tile standing jump
@@ -97,10 +99,8 @@ Legend tells, that these forbidden corridors will reveal our darkest side.
 
 ### Combat Tweaks
 - Different AI patterns for different enemies, following original source code pattern
-- Different sound for player vs enemy hits to make it clearer how the battle is going - can be hard to tell on the small display who hit who
 - Determine if more knockback is needed for strikes
 - Investigate blocking -- seems hard to tell if it's successful, and harder to pull off than in original
-  - Should add unique blocking sound
 
 ### Misc Tweaks (if memory allows)
 - Add a 'fat' enemy - he's kind of a classic staple, with a unique fighting style
@@ -109,6 +109,11 @@ Legend tells, that these forbidden corridors will reveal our darkest side.
 - Require pushing up to exit level
 - Reduce time for tiles falling when hitting from below
 - Ensure 1 minute time penalty is in play for dying and restarting level
+- Additional sounds
+  - tiles rattling
+  - tiles falling to floor
+  - Different sound for player vs enemy hits to make it clearer how the battle is going - can be hard to tell on the small display who hit who
+  - blocking sound
 
 ---
 

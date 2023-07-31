@@ -778,14 +778,6 @@ void game() {
                 case Stance::Jump_Up_B_14_End:
                 case Stance::Straight_Drop_HangOn_6_End:
 
-                    #ifdef USE_CLASSIC_CONTROLS
-                    // Require holding button to hang
-                    if (pressed & B_BUTTON && prince.getHangingCounter() == 0) {
-                    #endif
-                    prince.setHangingCounter(90);
-                    #ifdef USE_CLASSIC_CONTROLS
-                    }
-                    #endif
 
                     if (pressed & DOWN_BUTTON) {
 
@@ -842,6 +834,17 @@ void game() {
                     // Drop after a period of time hanging ..
 
                     else if(prince.getHangingCounter() == 0) {
+
+                        #ifdef USE_CLASSIC_CONTROLS
+                        // Require holding button to hang
+                        if (pressed & B_BUTTON && prince.getHangingCounter() == 0 && (prince.getPrevStance() != prince.getStance())) {
+                        #endif
+                        prince.setHangingCounter(1);
+                        prince.push(prince.getStance());
+                        break;
+                        #ifdef USE_CLASSIC_CONTROLS
+                        }
+                        #endif
 
                         CanClimbDownPart2Result climbDownResult = level.canClimbDown_Part2(prince, 0);
 
@@ -1953,9 +1956,9 @@ void game() {
                 activateSpikes(prince, level);
             }
 
-            // Has the player stepped on anything ?
+            // Is the player stepping or hanging on anything ?
 
-            if (prince.isFootDown()) {
+            if (prince.isFootDown() || prince.isHanging()) {
 
 
                 // Check for floor buttons and collapsing floors ..
@@ -1966,8 +1969,14 @@ void game() {
 
                 // Test with player's toe ..
 
-                int8_t tileXIdx = level.coordToTileIndexX(prince.getPosition().x + imageDetails.toe);
-                int8_t tileYIdx = level.coordToTileIndexY(prince.getPosition().y);
+                int8_t tileXIdx = prince.isFootDown()
+                    ? level.coordToTileIndexX(prince.getPosition().x + imageDetails.toe)
+                    : level.coordToTileIndexX(prince.getPosition().x) + prince.getDirectionOffset(1);
+
+                int8_t tileYIdx = prince.isFootDown()
+                    ? level.coordToTileIndexY(prince.getPosition().y)
+                    : level.coordToTileIndexY(prince.getPosition().y) - 1;
+
                 uint8_t itemIdx = level.getItem(ItemType::InteractiveItemType_Start, ItemType::InteractiveItemType_End, tileXIdx, tileYIdx);
 
 

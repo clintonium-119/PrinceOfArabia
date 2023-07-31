@@ -12,7 +12,7 @@
     #define _SAVE_MEMORY_ENEMY
     #define SAVE_MEMORY_INVADER
     #define _ALT_B_BUTTON
-    #define GIVE_SWORD
+    #define _GIVE_SWORD
 
     #define LEVEL_DATA_FROM_FX
     #define SAVE_TO_FX

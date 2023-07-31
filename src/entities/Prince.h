@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Arduboy2.h>   
+#include <Arduboy2.h>
 #include "../utils/Constants.h"
 #include "../utils/Stack.h"
 #include "../entities/Structs.h"
@@ -10,7 +10,7 @@
 class Prince : public BaseEntity, public BaseStack {
 
     private:
-        
+
         uint8_t hangingCounter = 0;
         uint8_t crouchingCounter = 0;
 
@@ -91,6 +91,22 @@ class Prince : public BaseEntity, public BaseStack {
 
         }
 
+        bool isHanging() {
+
+            switch (this->stance) {
+
+                case Stance::Jump_Up_A_14_End:
+                case Stance::Jump_Up_B_14_End:
+                case Stance::Straight_Drop_HangOn_6_End:
+                    return true;
+
+                default:
+                    return false;
+
+            }
+
+        }
+
         bool isSwordDrawn() {
 
             switch (this->stance) {
@@ -103,7 +119,7 @@ class Prince : public BaseEntity, public BaseStack {
                 case Stance::Sword_Normal:
                     return true;
 
-                default: 
+                default:
                     return false;
 
             }
@@ -136,9 +152,9 @@ class Prince : public BaseEntity, public BaseStack {
                 default:
 
                     return false;
-                    
+
             }
-            
+
         }
 
 };
